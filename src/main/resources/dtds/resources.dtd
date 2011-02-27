@@ -1,0 +1,25 @@
+<!ELEMENT list ( value* , value-ref*) >
+
+<!ELEMENT map ( entry+ ) >
+
+<!ELEMENT property ( value? ) >
+<!ATTLIST property name CDATA #REQUIRED >
+<!ATTLIST property value CDATA #IMPLIED >
+<!ATTLIST property value-ref NMTOKEN #IMPLIED >
+<!ATTLIST property depth CDATA #IMPLIED >
+
+<!ELEMENT entry ( value? , value-ref? ) >
+<!ATTLIST entry key NMTOKEN #REQUIRED >
+<!ATTLIST entry value CDATA #IMPLIED >
+
+<!ELEMENT resource ( property* ) >
+<!ATTLIST resource class NMTOKEN #REQUIRED >
+<!ATTLIST resource id NMTOKEN #IMPLIED >
+<!ATTLIST resource init-method CDATA #IMPLIED >
+<!ATTLIST resource destroy-method CDATA #IMPLIED >
+
+<!ELEMENT resources ( resource* ) >
+
+<!ELEMENT value ( #PCDATA | list | map | resource)* >
+
+<!ELEMENT value-ref ( #PCDATA ) >

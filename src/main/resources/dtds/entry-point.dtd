@@ -1,0 +1,34 @@
+<!ELEMENT configuration (cfg-handler*) >
+
+<!ELEMENT cfg-handler ( property*, local-cfg-handler* ) >
+<!ATTLIST cfg-handler class CDATA #IMPLIED >
+<!ATTLIST cfg-handler tag-ref CDATA #IMPLIED >
+<!ATTLIST cfg-handler id CDATA #REQUIRED >
+<!ATTLIST cfg-handler default-class CDATA #IMPLIED >
+
+<!ELEMENT local-cfg-handler ( #PCDATA ) >
+<!ATTLIST local-cfg-handler id CDATA #IMPLIED >
+<!ATTLIST local-cfg-handler tag-ref CDATA #REQUIRED >
+<!ATTLIST local-cfg-handler tag-name CDATA #REQUIRED >
+
+<!ELEMENT property ( value? ) >
+<!ATTLIST property name CDATA #REQUIRED >
+<!ATTLIST property value CDATA #IMPLIED >
+<!ATTLIST property value-ref NMTOKEN #IMPLIED >
+
+<!ELEMENT entry ( value? , value-ref? ) >
+<!ATTLIST entry key NMTOKEN #REQUIRED >
+<!ATTLIST entry value CDATA #IMPLIED >
+<!ATTLIST entry type CDATA #IMPLIED >
+
+<!ELEMENT value ( #PCDATA | list | map )* >
+
+<!ELEMENT list ( value*, value-ref*) >
+
+<!ELEMENT map ( entry+ ) >
+
+<!ELEMENT value-ref ( #PCDATA ) >
+
+<!ELEMENT file ( #PCDATA ) >
+
+<!ELEMENT files ( file* ) >

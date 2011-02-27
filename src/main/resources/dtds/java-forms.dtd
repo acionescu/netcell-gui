@@ -1,0 +1,58 @@
+<!ELEMENT forms-config (form-config*) >
+
+<!ELEMENT form-config (form-config*, component*, form-ref*, control-component*,param-init*, config-param* )* >
+<!ATTLIST form-config id CDATA #IMPLIED >
+<!ATTLIST form-config data-type CDATA #IMPLIED >
+<!ATTLIST form-config model-factory-id NMTOKEN #REQUIRED >
+<!ATTLIST form-config fieldName CDATA #IMPLIED >
+<!ATTLIST form-config source CDATA #IMPLIED >
+<!ATTLIST form-config source-field CDATA #IMPLIED >
+<!ATTLIST form-config editable (true | false) #IMPLIED >
+<!ATTLIST form-config bound-to-field (true | false) #IMPLIED>
+<!ATTLIST form-config show-labels (true | false) #IMPLIED>
+<!ATTLIST form-config label CDATA #IMPLIED >
+
+<!ELEMENT component EMPTY >
+<!ATTLIST component fieldName CDATA #IMPLIED >
+<!ATTLIST component action-name CDATA #IMPLIED >
+<!ATTLIST component label CDATA #IMPLIED >
+<!ATTLIST component ui-type CDATA #IMPLIED >
+<!ATTLIST component source CDATA #IMPLIED >
+<!ATTLIST component source-field CDATA #IMPLIED >
+<!ATTLIST component editable (true | false) #IMPLIED >
+<!ATTLIST component data-type CDATA #IMPLIED >
+<!ATTLIST component bound-to-field (true | false) #IMPLIED>
+<!ATTLIST component aux-source-field CDATA #IMPLIED>
+
+<!ELEMENT control-component (control-option+) >
+<!ATTLIST control-component fieldName CDATA #REQUIRED >
+<!ATTLIST control-component label CDATA #IMPLIED >
+<!ATTLIST control-component ui-type CDATA #IMPLIED >
+<!ATTLIST control-component source CDATA #IMPLIED >
+<!ATTLIST control-component source-field CDATA #IMPLIED >
+<!ATTLIST control-component editable (true | false) #IMPLIED >
+<!ATTLIST control-component data-type CDATA #IMPLIED >
+<!ATTLIST control-component hidden (false | true ) #IMPLIED >
+
+<!ELEMENT control-option EMPTY >
+<!ATTLIST control-option value CDATA #REQUIRED >
+<!ATTLIST control-option form-ref-id NMTOKEN #REQUIRED >
+
+<!ELEMENT param-init EMPTY>
+<!ATTLIST param-init name CDATA #REQUIRED >
+<!ATTLIST param-init value CDATA #IMPLIED >
+<!ATTLIST param-init source-field CDATA #IMPLIED >
+<!ATTLIST param-init source CDATA #IMPLIED >
+<!ATTLIST param-init is-field (false | true ) #IMPLIED >
+<!ATTLIST param-init init-flag (null | always | wrong-type) #IMPLIED >
+
+<!ELEMENT form-ref EMPTY >
+<!ATTLIST form-ref fieldName CDATA #REQUIRED >
+<!ATTLIST form-ref form-ref-id NMTOKEN #REQUIRED >
+
+<!ELEMENT config-param EMPTY>
+<!ATTLIST config-param name CDATA #REQUIRED >
+<!ATTLIST config-param value CDATA #IMPLIED >
+<!ATTLIST config-param source-field CDATA #IMPLIED >
+<!ATTLIST config-param source CDATA #IMPLIED >
+<!ATTLIST config-param ref-id NMTOKEN #IMPLIED >

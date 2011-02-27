@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE files SYSTEM "../dtds/entry-point.dtd">
+
+<files>
+	<!--	<file>xmls/ui-config-data.xml</file>-->
+	<file>xmls/java-forms-config.xml</file>
+	<file>xmls/java-forms-models.xml</file>
+	<file>xmls/special-forms.xml</file>
+</files>

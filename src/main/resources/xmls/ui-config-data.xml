@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE descriptions SYSTEM "../dtds/ui-generator.dtd">
+
+
+<descriptions>
+
+	<class-desc id="ro.zg.netcell.vo.definitions.WorkFlowDefinition">
+		<field-desc name="id" type="TEXTFIELD" />
+		<list-field-desc name="inputParameters" nested-type="ro.zg.netcell.vo.InputParameter" />
+		<list-field-desc name="outputParameters" editable="false"
+			nested-type="ro.zg.netcell.vo.OutputParameter" />
+	</class-desc>
+
+	<class-desc id="ro.zg.netcell.vo.InputParameter">
+		<field-desc name="name" type="TEXTFIELD" />
+		<field-desc name="value" type="TEXTFIELD" />
+		<field-desc name="type" type="COMBOBOX" source="types" />
+		<field-desc name="mandatory" type="CHECKBOX" />
+	</class-desc>
+
+	<class-desc id="ro.zg.netcell.vo.OutputParameter">
+		<field-desc name="name" type="TEXTFIELD" />
+		<field-desc name="value" type="TEXTFIELD" />
+		<field-desc name="type" type="COMBOBOX" source="types" />
+		<field-desc name="mandatory" type="CHECKBOX" />
+	</class-desc>
+	
+	<class-desc id="ro.zg.netcell.vo.configurations.WorkFlowComponentConfiguration">
+		<field-desc name="localId" type="TEXTFIELD"/>
+		<map-field-desc name="outputParamsMappings" editable="true">
+			<key-field-desc>
+				<field-desc name="key" source="availableParameters" type="COMBOBOX"/>
+			</key-field-desc>
+			<value-field-desc>
+				<field-desc name="value" type="TEXTFIELD" nested-type="java.lang.String"/>
+			</value-field-desc>
+			
+		</map-field-desc>
+	</class-desc>
+	
+	<class-desc id="ro.zg.netcell.vo.configurations.ComponentConfiguration">
+	
+	</class-desc>
+
+</descriptions>

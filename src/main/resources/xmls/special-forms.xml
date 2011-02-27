@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE forms-config SYSTEM "../dtds/java-forms.dtd">
+<forms-config>
+   <form-config id="embeded-flow" label="WorkflowComponentConfiguration"
+      data-type="ro.zg.netcell.vo.configurations.WorkFlowComponentConfiguration"
+      model-factory-id="DefaultModel">
+      <component fieldName="localId" ui-type="TEXTFIELD" />
+      <component fieldName="flowId" ui-type="COMBOBOX" source="allFlowsIds"
+         bound-to-field="false" />
+      <form-ref form-ref-id="ComponentConfiguration" fieldName="componentConfig" />
+      <form-config fieldName="outputParamsMappings"
+         model-factory-id="MapModel" editable="true">
+         <!--
+            <component fieldName="key" ui-type="COMBOBOX"
+            source="outputParameters" />
+         -->
+         <!--
+            <component fieldName="value" ui-type="TEXTFIELD"
+            data-type="java.lang.String" />
+         -->
+         <component fieldName="key" ui-type="COMBOBOX" source="outputParameters"
+            aux-source-field="name" />
+         <component fieldName="value" ui-type="COMBOBOX"
+            source="contextParamNamesByType.(originalSourceKey.type)" />
+      </form-config>
+      <form-ref form-ref-id="NoMappingFormConfig" fieldName="componentMapping" />
+   </form-config>
+</forms-config>

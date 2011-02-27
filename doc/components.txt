@@ -1,0 +1,3 @@
+workflow component:
+
+local id:editable

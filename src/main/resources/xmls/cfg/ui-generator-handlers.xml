@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration SYSTEM "../../dtds/entry-point.dtd">
+<configuration>
+
+	<cfg-handler id="classInfoHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.util.gui.forms.ClassInfo">
+		<!--		<property name="hasIdAttribute" value="false" />-->
+		<property name="tagsToProperties">
+			<value>
+				<map>
+					<entry key="field-desc" value="order" />
+					<entry key="list-field-desc" value="order"></entry>
+					<entry key="map-field-desc" value="order"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="localConfigurationHandlers">
+			<value>
+				<map>
+					<entry key="field-desc">
+						<value-ref>fieldInfoHandler</value-ref>
+					</entry>
+					<entry key="list-field-desc">
+						<value-ref>listFieldInfoHandler</value-ref>
+					</entry>
+					<entry key="map-field-desc">
+						<value-ref>mapFieldInfoHandler</value-ref>
+					</entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+
+	<cfg-handler id="fieldInfoHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.util.gui.forms.SimpleFieldInfo">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="name" value="fieldName" />
+					<entry key="label" value="label"></entry>
+					<entry key="type" value="type"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="editable" value="editable"></entry>
+					<entry key="nested-type" value="nestedType"></entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+	
+	<cfg-handler id="listFieldInfoHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.util.gui.forms.ListFieldInfo">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="name" value="fieldName" />
+					<entry key="label" value="label"></entry>
+					<entry key="type" value="type"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="editable" value="editable"></entry>
+					<entry key="nested-type" value="nestedType"></entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+	
+	<cfg-handler id="mapFieldInfoHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.util.gui.forms.MapFieldInfo">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="name" value="fieldName" />
+					<entry key="editable" value="editable"></entry>
+					<entry key="label" value="label"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="tagsToProperties">
+			<value>
+				<map>
+					<entry key="key-field-desc" value="keyFieldInfo" />
+					<entry key="value-field-desc" value="valueFieldInfo"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="localConfigurationHandlers">
+			<value>
+				<map>
+					<entry key="key-field-desc">
+						<value-ref>valueCfgHandler</value-ref>
+					</entry>
+					<entry key="value-field-desc">
+						<value-ref>valueCfgHandler</value-ref>
+					</entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+	
+	<cfg-handler id="valueCfgHandler" 
+	class="ro.zg.cfgengine.core.configuration.handlers.ValueConfigurationHandler"></cfg-handler>
+
+	<cfg-handler id="rootHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.BaseConfigurationHandler">
+		<property name="localConfigurationHandlers">
+			<value>
+				<map>
+					<entry key="class-desc">
+						<value-ref>classInfoHandler</value-ref>
+					</entry>
+					<entry key="field-desc">
+						<value-ref>fieldInfoHandler</value-ref>
+					</entry>
+					<entry key="list-field-desc">
+						<value-ref>listFieldInfoHandler</value-ref>
+					</entry>
+					<entry key="map-field-desc">
+						<value-ref>mapFieldInfoHandler</value-ref>
+					</entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+</configuration>

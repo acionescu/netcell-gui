@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration SYSTEM "../../dtds/entry-point.dtd">
+<configuration>
+
+	<cfg-handler id="formConfigHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.java.forms.FormConfig">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="fieldName" value="fieldName"></entry>
+					<entry key="model-factory-id" value="modelFactory"></entry>
+					<entry key="data-type" value="dataType"></entry>
+					<entry key="editable" value="editable"></entry>
+					<entry key="bound-to-field" value="boundToField"></entry>
+					<entry key="show-labels" value="showLabels"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="source-field" value="sourceField"></entry>
+					<entry key="label" value="label"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="tagsToProperties">
+			<value>
+				<map>
+					<entry key="component" value="elements" />
+					<entry key="form-config" value="elements"></entry>
+					<entry key="form-ref" value="elements"></entry>
+					<entry key="control-component" value="elements"></entry>
+					<entry key="param-init" value="fieldInitConfigs"></entry>
+					<entry key="config-param" value="configParams"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="attributesAsIdsForTags">
+			<value>
+				<map>
+					<entry key="component" value="fieldName"></entry>
+					<entry key="form-config" value="fieldName"></entry>
+					<entry key="form-ref" value="fieldName"></entry>
+					<entry key="control-component" value="fieldName"></entry>
+					<entry key="param-init" value="name"></entry>
+					<entry key="config-param" value="name"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="referenceTags">
+			<value>
+				<map>
+					<entry key="form-ref" value="form-ref-id"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="referenceAttributes">
+			<value>
+				<list>
+					<value>model-factory-id</value>
+				</list>
+			</value>
+		</property>
+	</cfg-handler>
+
+	<cfg-handler id="componentHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.java.forms.FormComponent">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="fieldName" value="fieldName" />
+					<entry key="label" value="label"></entry>
+					<entry key="ui-type" value="uiType"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="editable" value="editable"></entry>
+					<entry key="data-type" value="dataType"></entry>
+					<entry key="source-field" value="sourceField"></entry>
+					<entry key="action-name" value="actionName"></entry>
+					<entry key="bound-to-field" value="boundToField"></entry>
+					<entry key="aux-source-field" value="auxiliarySourceProperty"></entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+
+	<cfg-handler id="controlComponentHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.java.forms.FormControlComponent">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="fieldName" value="fieldName" />
+					<entry key="label" value="label"></entry>
+					<entry key="ui-type" value="uiType"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="editable" value="editable"></entry>
+					<entry key="data-type" value="dataType"></entry>
+					<entry key="source-field" value="sourceField"></entry>
+                                                                           <entry key="hidden" value="hidden"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="tagsToProperties">
+			<value>
+				<map>
+					<entry key="control-option" value="formMappings"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="attributesAsIdsForTags">
+			<value>
+				<map>
+					<entry key="control-option" value="value"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="referenceTags">
+			<value>
+				<map>
+					<entry key="control-option" value="form-ref-id"></entry>
+				</map>
+			</value>
+		</property>
+
+	</cfg-handler>
+
+
+	<cfg-handler id="fieldInitConfigHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.java.forms.ParamInitConfig">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="name" value="name" />
+					<entry key="value" value="value"></entry>
+					<entry key="source-field" value="sourceField"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="is-field" value="propertyFlagOn"></entry>
+					<entry key="init-flag" value="initFlag"></entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+	
+	<cfg-handler id="configParamConfigHandler"
+	class="ro.zg.cfgengine.core.configuration.handlers.CustomConfigurationHandler"
+		default-class="ro.zg.java.forms.ConfigParam">
+		<property name="hasIdAttribute" value="false" />
+		<property name="attributesToProperties">
+			<value>
+				<map>
+					<entry key="name" value="name" />
+					<entry key="value" value="value"></entry>
+					<entry key="source-field" value="sourceField"></entry>
+					<entry key="source" value="source"></entry>
+					<entry key="ref-id" value="reference"></entry>
+				</map>
+			</value>
+		</property>
+		<property name="referenceAttributes">
+			<value>
+				<list>
+					<value>ref-id</value>
+				</list>
+			</value>
+		</property>
+	</cfg-handler>
+
+
+	<cfg-handler id="valueCfgHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.ValueConfigurationHandler"></cfg-handler>
+
+	<cfg-handler id="rootHandler"
+		class="ro.zg.cfgengine.core.configuration.handlers.BaseConfigurationHandler">
+		<property name="localConfigurationHandlers">
+			<value>
+				<map>
+					<entry key="form-config">
+						<value-ref>formConfigHandler</value-ref>
+					</entry>
+					<entry key="component">
+						<value-ref>componentHandler</value-ref>
+					</entry>
+					<entry key="control-component">
+						<value-ref>controlComponentHandler</value-ref>
+					</entry>
+					<entry key="param-init">
+						<value-ref>fieldInitConfigHandler</value-ref>
+					</entry>
+					<entry key="config-param">
+						<value-ref>configParamConfigHandler</value-ref>
+					</entry>
+				</map>
+			</value>
+		</property>
+	</cfg-handler>
+</configuration>

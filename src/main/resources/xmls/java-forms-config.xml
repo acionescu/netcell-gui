@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE forms-config SYSTEM "../dtds/java-forms.dtd">
+<forms-config>
+   <form-config id="ro.zg.netcell.vo.definitions.WorkFlowDefinition"
+      data-type="ro.zg.netcell.vo.definitions.WorkFlowDefinition"
+      model-factory-id="DefaultModel" label="WorkflowDefinition">
+      <component fieldName="id" ui-type="TEXTFIELD" />
+      <component fieldName="description" ui-type="TEXTAREA" />
+      <component fieldName="workFlowConfig.entryPointId"
+         ui-type="COMBOBOX" source="componentIds" />
+      <form-config fieldName="inputParameters"
+         model-factory-id="ListModel" editable="true">
+         <form-ref fieldName="nestedElement" form-ref-id="InputParameterPane" />
+      </form-config>
+      <form-config fieldName="localParameters"
+         model-factory-id="ListModel" editable="true">
+         <form-ref fieldName="nestedElement" form-ref-id="LocalParameter" />
+      </form-config>
+      <form-config fieldName="outputParameters"
+         model-factory-id="ListModel" editable="true" source="contextParameters">
+         <form-ref form-ref-id="OutputParameter" fieldName="nestedElement" />
+      </form-config>
+   </form-config>
+   <form-config id="InputParameter" data-type="ro.zg.netcell.vo.InputParameter"
+      model-factory-id="DefaultModel" show-labels="false">
+      <!--		<param-init name="type" source="types.0" is-field="true"-->
+      <!--			init-flag="null" />-->
+      <component fieldName="name" ui-type="TEXTFIELD" />
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <!--
+         <component fieldName="type" ui-type="COMBOBOX" source="types"
+         />
+      -->
+      <form-ref form-ref-id="StringType" fieldName="complexType" />
+      <component fieldName="mandatory" ui-type="CHECKBOX" />
+   </form-config>
+   <form-config id="InputParameterPane" data-type="ro.zg.netcell.vo.InputParameter"
+      model-factory-id="ComboOptionPaneModel" show-labels="true">
+      <config-param name="comboPaneTitle" source-field="name" />
+      <component fieldName="name" ui-type="TEXTFIELD" />
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <form-ref form-ref-id="SimpleStringType" fieldName="complexType" />
+      <component fieldName="mandatory" ui-type="CHECKBOX" />
+      <component fieldName="uiType" source-field="uiTypes"
+         ui-type="COMBOBOX" />
+   </form-config>
+   <form-config id="LocalParameter" data-type="ro.zg.util.data.GenericNameValue"
+      model-factory-id="DefaultModel" show-labels="false">
+      <!--		<param-init name="type" source="types.0" is-field="true"-->
+      <!--			init-flag="null" />-->
+      <component fieldName="name" ui-type="TEXTFIELD" />
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <!--
+         <component fieldName="type" ui-type="COMBOBOX" source="types"
+         />
+      -->
+      <form-ref form-ref-id="StringType" fieldName="complexType" />
+   </form-config>
+   <form-config id="StringType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="String" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="BooleanType" value="Boolean" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="AnyType" value="Any" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleStringType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="String" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+         <control-option form-ref-id="SimpleAnyType"
+            value="Any" />
+      </control-component>
+   </form-config>
+   <form-config id="NumberType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Number" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="BooleanType" value="Boolean" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="AnyType" value="Any" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleNumberType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Number" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+         <control-option form-ref-id="SimpleAnyType"
+            value="Any" />
+      </control-component>
+   </form-config>
+   <form-config id="BooleanType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Boolean" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="BooleanType" value="Boolean" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="AnyType" value="Any" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleBooleanType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Boolean" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+         <control-option form-ref-id="SimpleAnyType"
+            value="Any" />
+      </control-component>
+   </form-config>
+   <form-config id="DateType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Date" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="BooleanType" value="Boolean" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="AnyType" value="Any" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleDateType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Date" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+         <control-option form-ref-id="SimpleAnyType"
+            value="Any" />
+      </control-component>
+   </form-config>
+   <form-config id="AnyType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Any" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="BooleanType" value="Boolean" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="AnyType" value="Any" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleAnyType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ParameterType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" is-field="true" init-flag="always"
+         value="Any" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+         <control-option form-ref-id="SimpleAnyType"
+            value="Any" />
+      </control-component>
+   </form-config>
+   <!--
+      <form-config id="ListTypeWrapper"
+      model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.ListType">
+   -->
+   <!--		<param-init name="this" init-flag="wrong-type"/>-->
+   <!--
+      <param-init name="type" init-flag="null" value="List"
+      is-field="true"/>
+   -->
+   <!--
+      <config-param name="nestedFormConfig" ref-id="ListParameterType"/>
+   -->
+   <!--		<config-param name="comboPaneTitle" source-field="type"/>-->
+   <!--	</form-config>-->
+   <form-config id="ComboListParameterType"
+      model-factory-id="ComboPaneModel" data-type="ro.zg.util.data.type.ListType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" init-flag="null" value="List"
+         is-field="true" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+      <form-ref form-ref-id="SimpleStringType" fieldName="nestedType" />
+   </form-config>
+   <form-config id="ListParameterType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.ListType">
+      <param-init name="this" init-flag="wrong-type" />
+      <param-init name="type" init-flag="null" value="List"
+         is-field="true" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+      </control-component>
+      <form-ref form-ref-id="SimpleStringType" fieldName="nestedType" />
+   </form-config>
+   <form-config id="ComboMapParameterType" model-factory-id="ComboPaneModel"
+      data-type="ro.zg.util.data.type.MapType">
+      <param-init name="this" init-flag="wrong-type" />
+      <config-param name="comboPaneTitle" source-field="type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="StringType" value="String" />
+         <control-option form-ref-id="NumberType" value="Number" />
+         <control-option form-ref-id="DateType" value="Date" />
+         <control-option form-ref-id="ComboListParameterType"
+            value="List" />
+         <control-option form-ref-id="ComboMapParameterType"
+            value="Context" />
+      </control-component>
+      <form-config model-factory-id="ListModel" fieldName="typesList"
+         editable="true" show-labels="true">
+         <form-ref form-ref-id="NameParameterType" fieldName="nestedElement" />
+      </form-config>
+   </form-config>
+   <form-config id="MapParameterType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.type.MapType">
+      <param-init name="this" init-flag="wrong-type" />
+      <control-component fieldName="type" ui-type="COMBOBOX"
+         source="types">
+         <control-option form-ref-id="SimpleStringType"
+            value="String" />
+         <control-option form-ref-id="SimpleNumberType"
+            value="Number" />
+         <control-option form-ref-id="SimpleBooleanType"
+            value="Boolean" />
+         <control-option form-ref-id="SimpleDateType"
+            value="Date" />
+         <control-option form-ref-id="ListParameterType"
+            value="List" />
+         <control-option form-ref-id="MapParameterType"
+            value="Context" />
+      </control-component>
+      <form-config model-factory-id="ListModel" fieldName="typesList"
+         editable="true" show-labels="true">
+         <form-ref form-ref-id="NameParameterType" fieldName="nestedElement" />
+      </form-config>
+   </form-config>
+   <form-config id="NameParameterType" model-factory-id="DefaultModel"
+      data-type="ro.zg.util.data.NameValue">
+      <component fieldName="name" ui-type="TEXTFIELD" />
+      <form-ref form-ref-id="StringType" fieldName="value" />
+   </form-config>
+   <form-config id="OutputParameter" data-type="ro.zg.netcell.vo.OutputParameter"
+      model-factory-id="DefaultModel" show-labels="false">
+      <param-init name="type" is-field="true" init-flag="always"
+         source="contextParamsMap.(name).type" />
+      <control-component fieldName="name" ui-type="COMBOBOX"
+         source="contextParameterNames">
+         <control-option form-ref-id="OutputParameter"
+            value="*" />
+      </control-component>
+      <component fieldName="type" ui-type="LABEL" />
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.configurations.WorkFlowComponentConfiguration"
+      label="WorkflowComponentConfiguration"
+      data-type="ro.zg.netcell.vo.configurations.WorkFlowComponentConfiguration"
+      model-factory-id="DefaultModel">
+      <component fieldName="localId" ui-type="TEXTFIELD" />
+      <form-ref form-ref-id="ComponentConfiguration" fieldName="componentConfig" />
+      <form-config fieldName="outputParamsMappings"
+         model-factory-id="MapModel" editable="true">
+         <component fieldName="key" ui-type="COMBOBOX" source="outputParameters"
+            aux-source-field="name" />
+         <component fieldName="value" ui-type="COMBOBOX"
+            source="contextParamNamesByType.(originalSourceKey.type)" />
+      </form-config>
+      <form-ref form-ref-id="NoMappingFormConfig" fieldName="componentMapping" />
+      <form-ref form-ref-id="ExitPointErrorMappingFormConfig"
+         fieldName="errorMapping" />
+   </form-config>
+   <form-config id="ComponentConfiguration"
+      data-type="ro.zg.netcell.vo.configurations.ComponentConfiguration"
+      model-factory-id="InputParametersModel">
+      <form-config fieldName="inputParameters" source="inputParamsConfigs"
+         model-factory-id="ListModel" editable="false" bound-to-field="false"
+         show-labels="false">
+         <form-ref form-ref-id="InputParamConfigEmptyDefault"
+            fieldName="nestedElement" />
+      </form-config>
+   </form-config>
+   <form-config id="InputParamConfigStatic" data-type="ro.zg.netcell.vo.InputParameterConfig"
+      model-factory-id="DefaultModel" show-labels="false">
+      <!--
+         <param-init name="value" is-field="true" init-flag="null" />
+      -->
+      <component fieldName="name" ui-type="LABEL" />
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <control-component fieldName="configType"
+         ui-type="COMBOBOX" source-field="configTypes">
+         <control-option value="EMPTY"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="DEFAULT"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="STATIC" form-ref-id="InputParamConfigStatic" />
+         <control-option value="DYNAMIC" form-ref-id="InputParamConfigDynamic" />
+      </control-component>
+   </form-config>
+   <form-config id="InputParamConfigDynamic" data-type="ro.zg.netcell.vo.InputParameterConfig"
+      model-factory-id="DefaultModel" show-labels="false">
+      <param-init name="value" source-field="availableValues.0"
+         is-field="true" init-flag="null" />
+      <component fieldName="name" ui-type="LABEL" />
+      <component fieldName="value" ui-type="COMBOBOX"
+         source-field="availableValues" />
+      <control-component fieldName="configType"
+         ui-type="COMBOBOX" source-field="configTypes">
+         <control-option value="EMPTY"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="DEFAULT"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="STATIC" form-ref-id="InputParamConfigStatic" />
+         <control-option value="DYNAMIC" form-ref-id="InputParamConfigDynamic" />
+      </control-component>
+   </form-config>
+   <form-config id="InputParamConfigEmptyDefault" data-type="ro.zg.netcell.vo.InputParameterConfig"
+      model-factory-id="DefaultModel" show-labels="false">
+      <param-init name="value" source-field="defaultValue"
+         is-field="true" init-flag="always" />
+      <component fieldName="name" ui-type="LABEL" />
+      <component fieldName="value" ui-type="LABEL" />
+      <control-component fieldName="configType"
+         ui-type="COMBOBOX" source-field="configTypes">
+         <control-option value="EMPTY"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="DEFAULT"
+            form-ref-id="InputParamConfigEmptyDefault" />
+         <control-option value="STATIC" form-ref-id="InputParamConfigStatic" />
+         <control-option value="DYNAMIC" form-ref-id="InputParamConfigDynamic" />
+      </control-component>
+   </form-config>
+   <form-config id="NoMappingFormConfig" model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPointsMapping">
+      <param-init name="nextComponentId" init-flag="always"
+         is-field="true" />
+      <param-init name="exitPointPrmName" init-flag="always"
+         is-field="true" />
+      <param-init name="exitLabel" is-field="true" init-flag="null"
+         value="exit" />
+      <control-component fieldName="mappingType"
+         ui-type="COMBOBOX" source-field="mappingTypes">
+         <control-option form-ref-id="NoMappingFormConfig"
+            value="NO_MAPPING" />
+         <control-option form-ref-id="DirectMappingFormConfig"
+            value="DIRECT_MAPPING" />
+         <control-option form-ref-id="ParameterMappingFormConfig"
+            value="PARAMETER_MAPPING" />
+         <control-option form-ref-id="FixedMappingsFormConfig"
+            value="FIXED_MAPPINGS" />
+      </control-component>
+      <component fieldName="exitLabel" ui-type="TEXTFIELD" />
+   </form-config>
+   <form-config id="DirectMappingFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPointsMapping">
+      <param-init name="nextComponentId" source="componentIds.0"
+         init-flag="null" is-field="true" />
+      <param-init name="exitPointPrmName" is-field="true"
+         init-flag="always" />
+      <param-init name="exitLabel" is-field="true" init-flag="always" />
+      <control-component fieldName="mappingType"
+         ui-type="COMBOBOX" source-field="mappingTypes">
+         <control-option form-ref-id="NoMappingFormConfig"
+            value="NO_MAPPING" />
+         <control-option form-ref-id="DirectMappingFormConfig"
+            value="DIRECT_MAPPING" />
+         <control-option form-ref-id="ParameterMappingFormConfig"
+            value="PARAMETER_MAPPING" />
+         <control-option form-ref-id="FixedMappingsFormConfig"
+            value="FIXED_MAPPINGS" />
+      </control-component>
+      <component fieldName="nextComponentId" ui-type="COMBOBOX"
+         source="componentIds" />
+   </form-config>
+   <form-config id="ParameterMappingFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPointsMapping">
+      <param-init name="exitLabel" is-field="true" init-flag="always" />
+      <param-init name="exitPointPrmName" source="exitParameters.0"
+         init-flag="null" is-field="true" />
+      <param-init name="nextComponentId" init-flag="always"
+         is-field="true" />
+      <param-init name="valuesForCurrentParam"
+         source="valuesForParameter.(exitPointPrmName)" />
+      <control-component fieldName="mappingType"
+         ui-type="COMBOBOX" source-field="mappingTypes">
+         <control-option form-ref-id="NoMappingFormConfig"
+            value="NO_MAPPING" />
+         <control-option form-ref-id="DirectMappingFormConfig"
+            value="DIRECT_MAPPING" />
+         <control-option form-ref-id="ParameterMappingFormConfig"
+            value="PARAMETER_MAPPING" />
+         <control-option form-ref-id="FixedMappingsFormConfig"
+            value="FIXED_MAPPINGS" />
+      </control-component>
+      <control-component fieldName="exitPointPrmName"
+         ui-type="COMBOBOX" source="exitParameters">
+         <control-option form-ref-id="ParameterMappingFormConfig"
+            value="*" />
+      </control-component>
+      <form-config fieldName="exitValuesMappings"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="ExitPointMappingFormConfig" />
+      </form-config>
+   </form-config>
+   <form-config id="FixedMappingsFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPointsMapping">
+      <param-init name="exitLabel" is-field="true" init-flag="always" />
+      <param-init name="exitPointPrmName" init-flag="always"
+         is-field="true" />
+      <param-init name="nextComponentId" init-flag="always"
+         is-field="true" />
+      <control-component fieldName="mappingType"
+         ui-type="COMBOBOX" source-field="mappingTypes">
+         <control-option form-ref-id="NoMappingFormConfig"
+            value="NO_MAPPING" />
+         <control-option form-ref-id="DirectMappingFormConfig"
+            value="DIRECT_MAPPING" />
+         <control-option form-ref-id="ParameterMappingFormConfig"
+            value="PARAMETER_MAPPING" />
+         <control-option form-ref-id="FixedMappingsFormConfig"
+            value="FIXED_MAPPINGS" />
+      </control-component>
+      <form-config fieldName="fixedMappings"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="ExitPointMappingFormConfig" />
+      </form-config>
+   </form-config>
+   <form-config id="ExitPointMappingFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPoint">
+      <param-init name="nextComponentId" is-field="true"
+         init-flag="always" />
+      <param-init name="exitPointMapping" source-field="exitPointName"
+         is-field="true" init-flag="null" />
+      <param-init name="exitPointName" is-field="true"
+         init-flag="always" source="valuesForCurrentParam.(_currentKeyIndex)" />
+      <component fieldName="exitPointMapping" ui-type="TEXTFIELD" />
+      <control-component fieldName="mappingType"
+         source-field="mappingTypes" ui-type="COMBOBOX">
+         <control-option form-ref-id="ExitPointMappingFormConfig"
+            value="LABEL" />
+         <control-option form-ref-id="ExitPointComponentMappingFormConfig"
+            value="COMPONENT" />
+      </control-component>
+   </form-config>
+   <!-- exit point error mapping -->
+   <form-config id="ExitPointErrorMappingFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPoint">
+      <param-init name="nextComponentId" is-field="true"
+         init-flag="always" />
+      <param-init name="exitPointMapping" source-field="exitPointName"
+         is-field="true" init-flag="null" />
+      <component fieldName="exitPointMapping" ui-type="TEXTFIELD" />
+      <control-component fieldName="mappingType"
+         source-field="mappingTypes" ui-type="COMBOBOX">
+         <control-option form-ref-id="ExitPointErrorMappingFormConfig"
+            value="LABEL" />
+         <control-option form-ref-id="ExitPointComponentMappingFormConfig"
+            value="COMPONENT" />
+      </control-component>
+   </form-config>
+   <form-config id="ExitPointComponentMappingFormConfig"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.configurations.ComponentExitPoint">
+      <param-init name="nextComponentId" source="componentIds.0"
+         is-field="true" init-flag="null" />
+      <param-init name="exitPointMapping" is-field="true"
+         init-flag="always" />
+      <component fieldName="nextComponentId" ui-type="COMBOBOX"
+         source="componentIds" />
+      <control-component fieldName="mappingType"
+         source-field="mappingTypes" ui-type="COMBOBOX">
+         <control-option form-ref-id="ExitPointMappingFormConfig"
+            value="LABEL" />
+         <control-option form-ref-id="ExitPointComponentMappingFormConfig"
+            value="COMPONENT" />
+      </control-component>
+   </form-config>
+   <form-config id="ro.zg.netcell.gui.vo.ExecuteFlowRequest"
+      model-factory-id="DefaultModel" data-type="ro.zg.netcell.gui.vo.ExecuteFlowRequest">
+      <form-config fieldName="inputParameters"
+         model-factory-id="ListModel" editable="false">
+         <form-ref form-ref-id="RequestInputParameter"
+            fieldName="nestedElement" />
+      </form-config>
+      <component fieldName="execute" action-name="execute"
+         ui-type="BUTTON" label="Execute" />
+   </form-config>
+   <form-config id="RequestInputParameter" model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.InputParameter" show-labels="false">
+      <component fieldName="name" ui-type="LABEL" />
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <component fieldName="type" ui-type="LABEL" />
+      <component fieldName="mandatory" ui-type="LABEL" />
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.DataSourceDefinition.create"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.DataSourceDefinition">
+      <param-init name="datasourceType" source="datasourcesTypes.0"
+         is-field="true" init-flag="null" />
+      <component fieldName="id" ui-type="TEXTFIELD" />
+      <component fieldName="datasourceType" ui-type="COMBOBOX"
+         source="datasourcesTypes" />
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.DataSourceDefinition.update"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.DataSourceDefinition">
+      <component fieldName="id" ui-type="LABEL" />
+      <component fieldName="datasourceType" ui-type="LABEL" />
+      <form-config fieldName="configData.userInputParams"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="SimpleUserInputParameter" />
+      </form-config>
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.ConfigurableComponentDefinition.create"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.ConfigurableComponentDefinition">
+      <param-init name="templateId" source="templatesIds.0"
+         is-field="true" init-flag="null" />
+      <component fieldName="id" ui-type="TEXTFIELD" />
+      <component fieldName="templateId" ui-type="COMBOBOX"
+         source="templatesIds" />
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.ConfigurableComponentDefinition.update"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.ConfigurableComponentDefinition">
+      <component fieldName="id" ui-type="LABEL" />
+      <component fieldName="templateId" ui-type="LABEL" />
+      <form-config fieldName="configData.userInputParams"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="SimpleUserInputParameter" />
+      </form-config>
+   </form-config>
+   <form-config id="SimpleUserInputParameter"
+      model-factory-id="DefaultModel" data-type="ro.zg.util.data.UserInputParameter">
+      <component fieldName="value" ui-type="TEXTFIELD" />
+      <control-component fieldName="inputType" hidden="true"
+         ui-type="COMBOBOX">
+         <control-option form-ref-id="SimpleUserInputParameter"
+            value="UNKNOWN_VALUE" />
+         <control-option form-ref-id="SelectedUserInputParameter"
+            value="VALUE_FROM_LIST" />
+         <control-option form-ref-id="SimpleLargeUserInputParameter"
+            value="UNKNOWN_LARGE_VALUE" />
+      </control-component>
+   </form-config>
+   <form-config id="SimpleLargeUserInputParameter"
+      model-factory-id="DefaultModel" data-type="ro.zg.util.data.UserInputParameter">
+      <component fieldName="value" ui-type="TEXTAREA" />
+      <control-component fieldName="inputType" hidden="true"
+         ui-type="COMBOBOX">
+         <control-option form-ref-id="SimpleUserInputParameter"
+            value="UNKNOWN_VALUE" />
+         <control-option form-ref-id="SelectedUserInputParameter"
+            value="VALUE_FROM_LIST" />
+         <control-option form-ref-id="SimpleLargeUserInputParameter"
+            value="UNKNOWN_LARGE_VALUE" />
+      </control-component>
+   </form-config>
+   <form-config id="SelectedUserInputParameter"
+      model-factory-id="DefaultModel" data-type="ro.zg.util.data.UserInputParameter">
+      <param-init name="value" source-field="allowedValues.0"
+         is-field="true" init-flag="null" />
+      <component fieldName="value" ui-type="COMBOBOX"
+         source-field="allowedValues" />
+      <control-component fieldName="inputType" hidden="true"
+         ui-type="COMBOBOX">
+         <control-option form-ref-id="SimpleUserInputParameter"
+            value="UNKNOWN_VALUE" />
+         <control-option form-ref-id="SelectedUserInputParameter"
+            value="VALUE_FROM_LIST" />
+         <control-option form-ref-id="SimpleLargeUserInputParameter"
+            value="UNKNOWN_LARGE_VALUE" />
+      </control-component>
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.DataAccessComponentDefinition.create"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.DataAccessComponentDefinition">
+      <param-init name="dataSourceName" source="datasourcesNames.0"
+         is-field="true" init-flag="null" />
+      <component fieldName="id" ui-type="TEXTFIELD" />
+      <component fieldName="dataSourceName" ui-type="COMBOBOX"
+         source="datasourcesNames" />
+   </form-config>
+   <form-config
+      id="ro.zg.netcell.vo.definitions.DataAccessComponentDefinition.update"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.DataAccessComponentDefinition">
+      <param-init name="commandName" source-field="id"
+         is-field="true" init-flag="null" />
+      <component fieldName="id" ui-type="LABEL" />
+      <component fieldName="dataSourceName" ui-type="LABEL" />
+      <form-config fieldName="inputParameters"
+         model-factory-id="ListModel" editable="true" show-labels="false">
+         <form-ref fieldName="nestedElement" form-ref-id="InputParameter" />
+      </form-config>
+      <form-config fieldName="configData.userInputParams"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="SimpleUserInputParameter" />
+      </form-config>
+   </form-config>
+   
+   <form-config
+      id="ro.zg.netcell.vo.definitions.ScheduledJobDefinition.update"
+      model-factory-id="DefaultModel"
+      data-type="ro.zg.netcell.vo.definitions.ScheduledJobDefinition">
+      <component fieldName="id" ui-type="LABEL" />
+      <component fieldName="templateId" ui-type="LABEL" />
+      <form-config fieldName="configData.userInputParams"
+         model-factory-id="MapModel" editable="false">
+         <component fieldName="key" ui-type="LABEL"
+            source="valuesForCurrentParam" />
+         <form-ref fieldName="value" form-ref-id="SimpleUserInputParameter" />
+      </form-config>
+   </form-config>
+</forms-config>

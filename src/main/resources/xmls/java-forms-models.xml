@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources SYSTEM "../dtds/resources.dtd">
+
+<resources>
+
+	<resource id="DefaultModel" class="ro.zg.java.forms.model.DefaultFormModelFactory"></resource>
+	<resource id="ListModel" class="ro.zg.java.forms.model.ListFormModelFactory"></resource>
+	<resource id="MapModel" class="ro.zg.java.forms.model.MapFormModelFactory"></resource>
+	<resource id="ComboPaneModel" class="ro.zg.java.forms.model.ComboPaneFormModelFactory"></resource>
+               <resource id="ComboOptionPaneModel" class="ro.zg.java.forms.model.ComboOptionPaneFormModelFactory"></resource>
+	<resource id="InputParametersModel" class="ro.zg.netcell.gui.forms.model.InputParametersFormModelFactory"></resource>
+</resources>

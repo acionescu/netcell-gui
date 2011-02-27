@@ -1,0 +1,30 @@
+<!ELEMENT descriptions (class-desc*) >
+
+<!ELEMENT class-desc (field-desc*, list-field-desc*, map-field-desc* )* >
+<!ATTLIST class-desc id CDATA #REQUIRED >
+
+<!ELEMENT field-desc EMPTY >
+<!ATTLIST field-desc name CDATA #REQUIRED >
+<!ATTLIST field-desc label CDATA #IMPLIED >
+<!ATTLIST field-desc type CDATA #IMPLIED >
+<!ATTLIST field-desc source CDATA #IMPLIED >
+<!ATTLIST field-desc editable (true | false) #IMPLIED >
+<!ATTLIST field-desc nested-type CDATA #IMPLIED >
+
+<!ELEMENT list-field-desc EMPTY>
+<!ATTLIST list-field-desc name CDATA #REQUIRED >
+<!ATTLIST list-field-desc label CDATA #IMPLIED >
+<!ATTLIST list-field-desc type CDATA #IMPLIED >
+<!ATTLIST list-field-desc source CDATA #IMPLIED >
+<!ATTLIST list-field-desc editable (true | false) #IMPLIED >
+<!ATTLIST list-field-desc nested-type CDATA #IMPLIED >
+
+<!ELEMENT map-field-desc (key-field-desc?, value-field-desc?) >
+<!ATTLIST map-field-desc name CDATA #REQUIRED >
+<!ATTLIST map-field-desc editable (true | false) #IMPLIED >
+<!ATTLIST map-field-desc label CDATA #IMPLIED >
+
+<!ELEMENT key-field-desc (field-desc?, list-field-desc?, map-field-desc?) >
+
+<!ELEMENT value-field-desc (field-desc?, list-field-desc?, map-field-desc?) >
+
