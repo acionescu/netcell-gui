@@ -686,6 +686,23 @@
             value="VALUE_FROM_LIST" />
          <control-option form-ref-id="SimpleLargeUserInputParameter"
             value="UNKNOWN_LARGE_VALUE" />
+         <control-option form-ref-id="SecretUserInputParameter"
+            value="SECRET_VALUE" />
+      </control-component>
+   </form-config>
+   <form-config id="SecretUserInputParameter"
+      model-factory-id="DefaultModel" data-type="ro.zg.util.data.UserInputParameter">
+      <component fieldName="value" ui-type="SECRET" />
+      <control-component fieldName="inputType" hidden="true"
+         ui-type="COMBOBOX">
+         <control-option form-ref-id="SimpleUserInputParameter"
+            value="UNKNOWN_VALUE" />
+         <control-option form-ref-id="SelectedUserInputParameter"
+            value="VALUE_FROM_LIST" />
+         <control-option form-ref-id="SimpleLargeUserInputParameter"
+            value="UNKNOWN_LARGE_VALUE" />
+         <control-option form-ref-id="SecretUserInputParameter"
+            value="SECRET_VALUE" />
       </control-component>
    </form-config>
    <form-config id="SimpleLargeUserInputParameter"
@@ -699,6 +716,8 @@
             value="VALUE_FROM_LIST" />
          <control-option form-ref-id="SimpleLargeUserInputParameter"
             value="UNKNOWN_LARGE_VALUE" />
+         <control-option form-ref-id="SecretUserInputParameter"
+            value="SECRET_VALUE" />
       </control-component>
    </form-config>
    <form-config id="SelectedUserInputParameter"
@@ -715,6 +734,8 @@
             value="VALUE_FROM_LIST" />
          <control-option form-ref-id="SimpleLargeUserInputParameter"
             value="UNKNOWN_LARGE_VALUE" />
+         <control-option form-ref-id="SecretUserInputParameter"
+            value="SECRET_VALUE" />
       </control-component>
    </form-config>
    <form-config
@@ -746,7 +767,6 @@
          <form-ref fieldName="value" form-ref-id="SimpleUserInputParameter" />
       </form-config>
    </form-config>
-   
    <form-config
       id="ro.zg.netcell.vo.definitions.ScheduledJobDefinition.update"
       model-factory-id="DefaultModel"
