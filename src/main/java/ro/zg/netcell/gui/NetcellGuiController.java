@@ -581,7 +581,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	    WorkFlowComponentConfiguration wfCompConfig) {
 	String currentCompId = wfCompConfig.getLocalId();
 	if (currentCompId.equals(currentDefinition.getWorkFlowConfig().getEntryPointId())) {
-	    return (Map<String, GenericNameValue>) ObjectsUtil.createMapFromList(
+	    return (Map<String, GenericNameValue>) ObjectsUtil.createMapFromCollection(
 		    currentDefinition.getInputParameters(), "name");
 	}
 	Map<String, GenericNameValue> params = new LinkedHashMap<String, GenericNameValue>();

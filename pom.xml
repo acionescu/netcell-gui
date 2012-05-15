@@ -9,15 +9,20 @@
   		<artifactId>ro.zg.netcell</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
-  	<dependency>
-  		<groupId>ro.zg.data.util.graphs</groupId>
-  		<artifactId>ro.zg.data.util.graphs</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+<!--   	<dependency> -->
+<!--   		<groupId>ro.zg.data.util.graphs</groupId> -->
+<!--   		<artifactId>ro.zg.data.util.graphs</artifactId> -->
+<!--   		<version>0.0.1-SNAPSHOT</version> -->
+<!--   	</dependency> -->
   	
   	<dependency>
   		<groupId>ro.zg.java-forms-swing</groupId>
   		<artifactId>java-forms-swing</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>ro.zg.data.util.graphs</groupId>
+  		<artifactId>ro.zg.data.util.graphs</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>

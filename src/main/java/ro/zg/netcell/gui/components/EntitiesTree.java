@@ -16,7 +16,7 @@
 package ro.zg.netcell.gui.components;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +71,7 @@ public class EntitiesTree extends JTree {
 	DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
 	setModel(treeModel);
 
-	for (Map.Entry<String, List<EntityDefinition>> entry : definitionsRepository.getDefinitionsByType().entrySet()) {
+	for (Map.Entry<String, Collection<EntityDefinition>> entry : definitionsRepository.getDefinitionsByType().entrySet()) {
 	    String entityType = entry.getKey();
 	    System.out.println("add to tree entitytype "+entityType);
 	    DefaultMutableTreeNode currentNode = new DefaultMutableTreeNode(entityType);
