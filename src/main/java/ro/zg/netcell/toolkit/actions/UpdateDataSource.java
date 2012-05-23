@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import ro.zg.java.forms.Form;
@@ -40,17 +39,21 @@ public class UpdateDataSource extends NetcellAbstractAction {
 	DataSourceDefinition dsDef = (DataSourceDefinition) e.getSource();
 	Form form = controller.getFormForObject(dsDef, "update");
 	form.initialize();
-	JOptionPane pane = new JOptionPane(form.getUi().getHolder());
-	JDialog dialog = pane.createDialog("Configure datasource");
-	form.getModel().addPropertyChangeListener(new PropertyChangeMonitor());
-	dialog.setVisible(true);
+//	form.getModel().addPropertyChangeListener(new PropertyChangeMonitor());
+//	JOptionPane pane = new JOptionPane(form.getUi().getHolder());
+//	pane.setOptionType(JOptionPane.OK_CANCEL_OPTION);
+//	JDialog dialog = pane.createDialog("Configure datasource");
+//	int value = JOptionPane.showOptionDialog(null, form.getUi().getHolder(), "Configure datasource", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+//	dialog.setVisible(true);
+	handleDialog(form, "Configure datasource");
     }
 
-    class PropertyChangeMonitor implements PropertyChangeListener{
-	public void propertyChange(PropertyChangeEvent evt) {
-	    ObjectFormModel fm = (ObjectFormModel)evt.getSource();
-	    controller.onEntityChanged((EntityDefinition)fm.getDataObject());
-	}
-    }
+//    class PropertyChangeMonitor implements PropertyChangeListener{
+//	public void propertyChange(PropertyChangeEvent evt) {
+//	    System.out.println("what");
+//	    ObjectFormModel fm = (ObjectFormModel)evt.getSource();
+//	    controller.onEntityChanged((EntityDefinition)fm.getDataObject());
+//	}
+//    }
     
 }

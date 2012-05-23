@@ -17,11 +17,17 @@ package ro.zg.netcell.toolkit.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.Action;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
+import ro.zg.java.forms.Form;
+import ro.zg.java.forms.model.ObjectFormModel;
 import ro.zg.netcell.gui.NetcellGuiController;
 import ro.zg.netcell.toolkit.actions.AddCustomComponentAction;
 import ro.zg.netcell.toolkit.actions.AddDataAccessComponentAction;
@@ -35,12 +41,14 @@ import ro.zg.netcell.toolkit.actions.UpdateCustomComponentAction;
 import ro.zg.netcell.toolkit.actions.UpdateDataAccessComponent;
 import ro.zg.netcell.toolkit.actions.UpdateDataSource;
 import ro.zg.netcell.toolkit.actions.UpdateScheduledJobAction;
+import ro.zg.netcell.vo.definitions.EntityDefinition;
 
-public class NetcellActionsListener implements ActionListener{
+public class NetcellActionsListener implements ActionListener {
     private NetcellGuiController controller;
-    private Map<String,Action> actions;
-    public NetcellActionsListener(NetcellGuiController c){
-	controller =c;
+    private Map<String, Action> actions;
+
+    public NetcellActionsListener(NetcellGuiController c) {
+	controller = c;
 	actions = new HashMap<String, Action>();
 	actions.put("add.workflow", new AddNewWorkflowAction(c));
 	actions.put("remove.entity", new RemoveEntityAction(c));
@@ -53,13 +61,13 @@ public class NetcellActionsListener implements ActionListener{
 	actions.put("add.customcomponent", new AddCustomComponentAction(c));
 	actions.put("update.customcomponent", new UpdateCustomComponentAction(c));
 	actions.put("update.scheduledjob", new UpdateScheduledJobAction(c));
-	actions.put("engine.reload",new ReloadEngineAction(c));
+	actions.put("engine.reload", new ReloadEngineAction(c));
     }
 
     public void actionPerformed(ActionEvent e) {
-	if(actions.containsKey(e.getActionCommand())){
+	if (actions.containsKey(e.getActionCommand())) {
 	    actions.get(e.getActionCommand()).actionPerformed(e);
 	}
     }
-
+   
 }
