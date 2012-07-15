@@ -94,4 +94,23 @@ public class DefinitionsStatusMonitor {
 	return newDefinitions.containsKey(defId);
     }
 
+    public void createCheckPoint(EntityDefinition def){
+	EntityDefinition re = removedDefinitions.remove(def.getId());
+	if(re != null){
+	    originalVersions.remove(re.getId());
+	    return;
+	}
+	EntityDefinition ne = newDefinitions.remove(def.getId());
+	if(ne != null){
+	    originalVersions.put(ne.getId(), ne);
+	    return;
+	}
+	
+	EntityDefinition me = modifiedDefinitions.remove(def.getId());
+	if(me != null){
+	    originalVersions.put(me.getId(), me);
+	    return;
+	}
+    }
+    
 }

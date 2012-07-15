@@ -42,6 +42,7 @@ public class UpdateScheduledJobAction  extends NetcellAbstractAction{
 
     @Override
     protected void actionPerformedDelegate(ActionEvent e) throws Exception {
+	System.out.println("update scheduled job");
 	ScheduledJobDefinition sjd = (ScheduledJobDefinition)e.getSource();
 	Form form = controller.getFormForObject(sjd, "update");
 	form.initialize();

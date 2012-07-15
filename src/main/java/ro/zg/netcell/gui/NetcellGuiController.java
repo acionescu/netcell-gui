@@ -80,6 +80,7 @@ import ro.zg.netcell.vo.definitions.EntitiesTypes;
 import ro.zg.netcell.vo.definitions.EntityDefinition;
 import ro.zg.netcell.vo.definitions.EntityType;
 import ro.zg.netcell.vo.definitions.ExecutableEntityDefinition;
+import ro.zg.netcell.vo.definitions.ScheduledJobDefinition;
 import ro.zg.netcell.vo.definitions.WorkFlowDefinition;
 import ro.zg.util.data.GenericNameValue;
 import ro.zg.util.data.ListMap;
@@ -253,6 +254,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	    } else {
 		netcellDao.updateEntity(selectedDefinitionInTree);
 	    }
+	    definitionsStatusMonitor.createCheckPoint(selectedDefinitionInTree);
 	    result = true;
 	}
 	return result;
@@ -300,6 +302,12 @@ public class NetcellGuiController implements TreeSelectionListener {
     public void fireDatasourceUpdate(String dsName) {
 	ActionEvent actionEvent = new ActionEvent(definitionsRepository.getDefinitionById(dsName), 0,
 		"update.datasource");
+	actionsListener.actionPerformed(actionEvent);
+    }
+    
+    public void fireScheduledJobUpdate(String jobName){
+	ActionEvent actionEvent = new ActionEvent(definitionsRepository.getDefinitionById(jobName), 0,
+		"update.scheduledjob");
 	actionsListener.actionPerformed(actionEvent);
     }
 
@@ -1145,7 +1153,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	    selectedPackageName = selection;
 
 	    if (e.getClickCount() == 2) {
-
+		/* TODO: refactor this to use some handlers */
 		isWorkflowSelected = false;
 		if (currentDef instanceof WorkFlowDefinition) {
 		    setCurrentDefinition((WorkFlowDefinition) currentDef);
@@ -1160,6 +1168,9 @@ public class NetcellGuiController implements TreeSelectionListener {
 		    }
 		} else if (currentDef instanceof DataSourceDefinition) {
 		    fireDatasourceUpdate(selection);
+		}
+		else if(currentDef instanceof ScheduledJobDefinition){
+		    fireScheduledJobUpdate(selection);
 		}
 		mainFrame.validate();
 	    } else {
