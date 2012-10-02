@@ -31,7 +31,7 @@ public class WorkflowComponentConfigFormHandler extends AbstractFormHandler<Work
 
     public void init() {
 	defaultHandler = new DefaultComponentFormHandler(getFormManager());
-	subHandlers.put("core.logic.embeded-flow", new FlowCallerComponentFormHandler(getFormManager()));
+//	subHandlers.put("core.logic.embeded-flow", new FlowCallerComponentFormHandler(getFormManager()));
     }
 
     public Form createForm(WorkFlowComponentConfiguration dataObject) {

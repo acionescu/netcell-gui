@@ -58,6 +58,7 @@ public class DefinitionsStatusMonitor {
     }
 
     public void onDefinitionChanged(EntityDefinition definition) {
+	System.out.println("Definition changed: "+definition);
 	String defId = definition.getId();
 	/* it's a new definition if it's not contained in the original map and not already marked as new */
 	if (!originalVersions.containsKey(defId)) {
