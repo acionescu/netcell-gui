@@ -118,7 +118,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 
     public void start() throws Exception {
 	initUi();
-//	mainFrame.showSplasScreen();
+	// mainFrame.showSplasScreen();
 	initFormsConfigManager();
 	loadDefinitions();
 	populateDefinitionsTree();
@@ -177,7 +177,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	item.setActionCommand("engine.reload");
 	item.addActionListener(actionsListener);
 	workflowDefPopup.add(item);
-	
+
 	if (selectedDefinitionInTree != null) {
 	    item = new JMenuItem(wfdefres.getString(PopupLabelsKeys.REMOVE));
 	    item.setActionCommand("remove.entity");
@@ -208,10 +208,10 @@ public class NetcellGuiController implements TreeSelectionListener {
     private void populateEntitiesToolBar() {
 	JToolBar toolBar = mainFrame.getEntitiesToolBar();
 	toolBar.removeAll();
-	addActionButton(toolBar, "add.datasource", "images/datasource.png",true);
-	addActionButton(toolBar, "add.datacomponent", "images/data_access.png",true);
-	addActionButton(toolBar, "add.workflow", "images/workflow.png",true);
-	addActionButton(toolBar, "add.customcomponent", "images/custom_component.png",true);
+	addActionButton(toolBar, "add.datasource", "images/datasource.png", true);
+	addActionButton(toolBar, "add.datacomponent", "images/data_access.png", true);
+	addActionButton(toolBar, "add.workflow", "images/workflow.png", true);
+	addActionButton(toolBar, "add.customcomponent", "images/custom_component.png", true);
     }
 
     private void addActionButton(JComponent owner, String actionName, String text, boolean isIcon) {
@@ -221,8 +221,8 @@ public class NetcellGuiController implements TreeSelectionListener {
 	if (!isIcon) {
 	    button.setText(text);
 	} else {
-	   ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(text));
-	   button.setIcon(imageIcon);
+	    ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource(text));
+	    button.setIcon(imageIcon);
 	}
 	owner.add(button);
     }
@@ -233,8 +233,8 @@ public class NetcellGuiController implements TreeSelectionListener {
     }
 
     private void initDragAndDropController() {
-	dragAndDropController = new ComponentsDragAndDropController(mainFrame.getEntitiesTree(), mainFrame
-		.getWorkflowUi(), this);
+	dragAndDropController = new ComponentsDragAndDropController(mainFrame.getEntitiesTree(),
+		mainFrame.getWorkflowUi(), this);
     }
 
     public boolean checkEntityExists(String name) {
@@ -259,7 +259,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	}
 	return result;
     }
-    
+
     public void reloadEngine() {
 	netcellDao.reloadEngine();
     }
@@ -287,7 +287,8 @@ public class NetcellGuiController implements TreeSelectionListener {
     public void addNewDatasource(DataSourceDefinition dsd) {
 	EntityType et = EntityType.getEntityType(EntitiesTypes.DATASOURCE, dsd.getDatasourceType().toString());
 	try {
-	    DataSourceDefinition newDsd = (DataSourceDefinition) netcellDao.createEntityDirectoryStructure(dsd.getId(), et);
+	    DataSourceDefinition newDsd = (DataSourceDefinition) netcellDao.createEntityDirectoryStructure(dsd.getId(),
+		    et);
 	    // definitionsMap.put(newDsd.getId(), newDsd);
 	    definitionsRepository.addObject(newDsd);
 	    addNodeToTree(newDsd.getId(), EntitiesTypes.DATASOURCE);
@@ -304,8 +305,8 @@ public class NetcellGuiController implements TreeSelectionListener {
 		"update.datasource");
 	actionsListener.actionPerformed(actionEvent);
     }
-    
-    public void fireScheduledJobUpdate(String jobName){
+
+    public void fireScheduledJobUpdate(String jobName) {
 	ActionEvent actionEvent = new ActionEvent(definitionsRepository.getDefinitionById(jobName), 0,
 		"update.scheduledjob");
 	actionsListener.actionPerformed(actionEvent);
@@ -314,8 +315,8 @@ public class NetcellGuiController implements TreeSelectionListener {
     public void addNewCustomComponent(ConfigurableComponentDefinition ccd) {
 	EntityType et = EntityType.getEntityType(EntitiesTypes.CONFIGURABLE_COMPONENT, ccd.getTemplateId());
 	try {
-	    ConfigurableComponentDefinition newCcd = (ConfigurableComponentDefinition) netcellDao.createEntityDirectoryStructure(ccd
-		    .getId(), et);
+	    ConfigurableComponentDefinition newCcd = (ConfigurableComponentDefinition) netcellDao
+		    .createEntityDirectoryStructure(ccd.getId(), et);
 	    definitionsRepository.addObject(newCcd);
 	    addNodeToTree(newCcd.getId(), EntitiesTypes.CONFIGURABLE_COMPONENT);
 	    definitionsStatusMonitor.onDefinitionChanged(newCcd);
@@ -512,10 +513,10 @@ public class NetcellGuiController implements TreeSelectionListener {
 	    map.add(p.getType(), p.getName());
 	    /* create also an entry for the generic types and put all the context params */
 	    map.add(ParameterType.GENERIC_TYPE, p.getName());
-//	    if (p.getComplexType().getParameterTypeType().equals(ParameterType.LIST_TYPE)) {
-//		map.add(ParameterType.LIST_TYPE + "[]", p.getName());
-//	    }
-	    map.add(p.getComplexType().fullGenericTypes(),p.getName());
+	    // if (p.getComplexType().getParameterTypeType().equals(ParameterType.LIST_TYPE)) {
+	    // map.add(ParameterType.LIST_TYPE + "[]", p.getName());
+	    // }
+	    map.add(p.getComplexType().fullGenericTypes(), p.getName());
 	}
 	return map.getAll();
     }
@@ -712,11 +713,11 @@ public class NetcellGuiController implements TreeSelectionListener {
 	/* for static params set the values */
 	for (Map.Entry<String, ValueType> entry : staticParams.entrySet()) {
 	    ValueType vt = entry.getValue();
-	    String value = (vt != null)?vt.getValue():null;
-	    if(response.containsKey(entry.getKey())) {
+	    String value = (vt != null) ? vt.getValue() : null;
+	    if (response.containsKey(entry.getKey())) {
 		response.get(entry.getKey()).setValue(value);
 	    }
-	    
+
 	}
 	return response;
     }
@@ -787,11 +788,9 @@ public class NetcellGuiController implements TreeSelectionListener {
 	WorkFlowConfiguration workFlowConfig = currentDefinition.getWorkFlowConfig();
 	String startCompId = workFlowConfig.getEntryPointId();
 	Map<String, WorkFlowComponentConfiguration> componentsConfig = workFlowConfig.getComponents();
+	String currentCompId = currentDefinition.getId();
 	currentWorkflowGraph = createGraphFromWorkflowDefinition(componentsConfig, startCompId);
-	workflowGraphs.put(currentDefinition.getId(), currentWorkflowGraph);
-	// workflowController.drawGraph(currentWorkflowGraph, currentDefinition, reconstructTree);
-	// mainFrame.validate();
-	// mainFrame.getWorkflowUi().repaint();
+	workflowGraphs.put(currentCompId, currentWorkflowGraph);
     }
 
     /* definitions tree listener */
@@ -860,31 +859,34 @@ public class NetcellGuiController implements TreeSelectionListener {
 	}
 	graph.addNode(currentCompId);
 	ComponentExitPointsMapping compMapping = currentComp.getComponentMapping();
-	String nextCompId = compMapping.getNextComponentId();
+	String nextCompId = null;
 	String exitPointPrmName = null;
 	WorkFlowComponentConfiguration nextComp = null;
 	Map<Object, ComponentExitPoint> mappedValues = null;
 
-	/* if we have a direct connection, add this edge */
-	if (nextCompId != null) {
-	    nextComp = components.get(nextCompId);
-	    nextComp.setLocalId(nextCompId);
+	if (compMapping != null) {
+	    nextCompId = compMapping.getNextComponentId();
 
-	    /* go down on the flow, to add the rest of connections */
-	    addToGraph(nextComp, components, graph);
-	    /*
-	     * add this edge to the graph, without any associated data. It's a direct connection, so there is no rule
-	     * for this/
-	     */
-	    graph.addEdge(currentCompId, nextCompId, null);
-	}
-	/* we have a mapped runtime context parameter */
-	else if ((exitPointPrmName = compMapping.getExitPointPrmName()) != null) {
-	    mappedValues = compMapping.getExitValuesMappings();
-	} else if (compMapping.getFixedMappings().size() > 0) {
-	    mappedValues = compMapping.getFixedMappings();
-	}
+	    /* if we have a direct connection, add this edge */
+	    if (nextCompId != null) {
+		nextComp = components.get(nextCompId);
+		nextComp.setLocalId(nextCompId);
 
+		/* go down on the flow, to add the rest of connections */
+		addToGraph(nextComp, components, graph);
+		/*
+		 * add this edge to the graph, without any associated data. It's a direct connection, so there is no
+		 * rule for this/
+		 */
+		graph.addEdge(currentCompId, nextCompId, null);
+	    }
+	    /* we have a mapped runtime context parameter */
+	    else if ((exitPointPrmName = compMapping.getExitPointPrmName()) != null) {
+		mappedValues = compMapping.getExitValuesMappings();
+	    } else if (compMapping.getFixedMappings().size() > 0) {
+		mappedValues = compMapping.getFixedMappings();
+	    }
+	}
 	if (mappedValues != null) {
 	    /* iterate through the mapped connections */
 	    for (Map.Entry<Object, ComponentExitPoint> entry : mappedValues.entrySet()) {
@@ -923,9 +925,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 		nextComp.setLocalId(nextCompId);
 		/* go down on the flow, to add the rest of connections */
 		addToGraph(nextComp, components, graph);
-		graph
-			.addEdge(currentCompId, nextCompId, new GenericNameValue(SpecialExitPoints.CAUGHT_EXCEPTION,
-				null));
+		graph.addEdge(currentCompId, nextCompId, new GenericNameValue(SpecialExitPoints.CAUGHT_EXCEPTION, null));
 	    } else if (errorMapping.getExitPointMapping() != null) {
 		graph.addEdge(currentCompId, currentCompId + "." + SpecialExitPoints.CAUGHT_EXCEPTION,
 			new GenericNameValue("ERROR", errorMapping));
@@ -1060,7 +1060,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 	// mainFrame.add(a1);
 
 	// WorkFlowComponentUI wfc1ui = new WorkFlowComponentUI();
-	//	
+	//
 	// workPane.add(wfc1ui);
 
 	// NetcellRmiClient client = new NetcellRmiClient("localhost", 2000, "NetcellRmiReceiver");
@@ -1168,8 +1168,7 @@ public class NetcellGuiController implements TreeSelectionListener {
 		    }
 		} else if (currentDef instanceof DataSourceDefinition) {
 		    fireDatasourceUpdate(selection);
-		}
-		else if(currentDef instanceof ScheduledJobDefinition){
+		} else if (currentDef instanceof ScheduledJobDefinition) {
 		    fireScheduledJobUpdate(selection);
 		}
 		mainFrame.validate();

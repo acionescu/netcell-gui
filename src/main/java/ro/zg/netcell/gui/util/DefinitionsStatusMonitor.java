@@ -21,7 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import ro.zg.netcell.vo.definitions.EntityDefinition;
-import ro.zg.netcell.vo.definitions.EntityDefinition;
 import ro.zg.util.data.ObjectsUtil;
 
 public class DefinitionsStatusMonitor {
@@ -103,13 +102,13 @@ public class DefinitionsStatusMonitor {
 	}
 	EntityDefinition ne = newDefinitions.remove(def.getId());
 	if(ne != null){
-	    originalVersions.put(ne.getId(), ne);
+	    originalVersions.put(ne.getId(), (EntityDefinition) ObjectsUtil.copy(ne));
 	    return;
 	}
 	
 	EntityDefinition me = modifiedDefinitions.remove(def.getId());
 	if(me != null){
-	    originalVersions.put(me.getId(), me);
+	    originalVersions.put(me.getId(), (EntityDefinition) ObjectsUtil.copy(me));
 	    return;
 	}
     }

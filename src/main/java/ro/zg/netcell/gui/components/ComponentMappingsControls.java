@@ -148,6 +148,8 @@ public class ComponentMappingsControls extends JPanel {
 	if (nextCompId != null) {
 	    directMappingCombo.setSelectedItem(nextCompId);
 	} else {
+//	    /* by default set next component mapping to self */
+//	    compMappings.setNextComponentId(compDef.getId());
 	    compConfig.getComponentMapping().setNextComponentId((String) directMappingCombo.getSelectedItem());
 //	    controller.onNextComponentIdChanged();
 	}
