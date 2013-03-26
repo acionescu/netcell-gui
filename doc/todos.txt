@@ -1,0 +1,10 @@
+todo:
+
+- when using parameter mapping, make next component id point to self by default
+- favor path with minimum corners when drawing arrows
+- arrange exit points at the end of the flow, one under the other ( only one view per exit point )
+
+
+
+done:
+
