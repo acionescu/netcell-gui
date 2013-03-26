@@ -197,7 +197,7 @@ public class InputParametersFormModel extends DefaultFormModel {
 	}
     }
 
-    public void onNestedValueChanged(PropertyChangeEvent event) {
+    public PropertyChangeEvent onNestedValueChanged(PropertyChangeEvent event) {
 	// int index1 = event.getPropertyName().indexOf(".") + 1;
 	// if (index1 > 0) {
 	// int index2 = event.getPropertyName().indexOf(".", index1);
@@ -227,6 +227,8 @@ public class InputParametersFormModel extends DefaultFormModel {
 	    resetParamValue(event);
 	}
 	syncData();
+	
+	return event;
     }
 
 }

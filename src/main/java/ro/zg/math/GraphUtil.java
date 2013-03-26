@@ -200,8 +200,8 @@ public class GraphUtil {
 		    newSources.add(newPoint);
 		}
 
-		List<Point2D> destList = new ArrayList<Point2D>();
-		destList.add(dest);
+//		List<Point2D> destList = new ArrayList<Point2D>();
+//		destList.add(dest);
 		int nextIndex = path.size();
 		double dist = getShortestPath(newSources, anchor, obstacles, minDistToObstacle, path);
 		if (dist >= 0) {
@@ -212,37 +212,34 @@ public class GraphUtil {
 	}
 
 	if (dx != sx && dy != sy) {
-	    Point2D normalPoint = anchor.getNormalPoint(source);
-	    if (path.size() >= 2) {
-		Point2D prevPoint = path.get(path.size() - 2);
-		if ((prevPoint.getX() == source.getX()) && (source.getX() == normalPoint.getX())
-			&& (prevPoint.getY() < normalPoint.getY()) && (normalPoint.getY() < source.getY())) {
-		    if (dest.getX() > source.getX()) {
-			normalPoint = new Point2D.Double(dest.getX() - minDistToObstacle, source.getY());
-		    } else {
-			normalPoint = new Point2D.Double(dest.getX() + minDistToObstacle, source.getY());
-		    }
-		} else if ((prevPoint.getY() == source.getY()) && (source.getY() == normalPoint.getY())
-			&& (prevPoint.getX() < normalPoint.getX()) && (normalPoint.getX() < source.getX())) {
-		    if (dest.getY() > source.getY()) {
-			normalPoint = new Point2D.Double(source.getX(), dest.getY() - minDistToObstacle);
-		    } else {
-			normalPoint = new Point2D.Double(source.getX(), dest.getY() + minDistToObstacle);
-		    }
-		}
-		
-//		if(prevPoint.distance(normalPoint) < minDistToObstacle) {
-//		    System.out.println("hop : "+prevPoint.distance(normalPoint));
-//		    return -1;
+	    Point2D normalPoint = anchor.getNormalPoint(path.get(path.size() - 1));//anchor.getNormalPoint(source);
+//	    if (path.size() >= 2) {
+//		Point2D prevPoint = path.get(path.size() - 2);
+//		if ((prevPoint.getX() == source.getX()) && (source.getX() == normalPoint.getX())
+//			&& (prevPoint.getY() < normalPoint.getY()) && (normalPoint.getY() < source.getY())) {
+//		    if (dest.getX() > source.getX()) {
+//			normalPoint = new Point2D.Double(dest.getX() - minDistToObstacle, source.getY());
+//		    } else {
+//			normalPoint = new Point2D.Double(dest.getX() + minDistToObstacle, source.getY());
+//		    }
+//		} else if ((prevPoint.getY() == source.getY()) && (source.getY() == normalPoint.getY())
+//			&& (prevPoint.getX() < normalPoint.getX()) && (normalPoint.getX() < source.getX())) {
+//		    if (dest.getY() > source.getY()) {
+//			normalPoint = new Point2D.Double(source.getX(), dest.getY() - minDistToObstacle);
+//		    } else {
+//			normalPoint = new Point2D.Double(source.getX(), dest.getY() + minDistToObstacle);
+//		    }
 //		}
-	    }
+//		
+//	    }
 	    
 	    
 	    double dist1 = MathUtil.getShortestPath2(source, normalPoint, obstacles, minDistToObstacle, path);
+	    path.remove(normalPoint);
 	    if (dist1 < 0) {
 		return dist1;
 	    }
-	    path.remove(normalPoint);
+	   
 	    double dist2 = getShortestPath(normalPoint, anchor, obstacles, minDistToObstacle, path);
 	    if (dist2 < 0) {
 		return dist2;

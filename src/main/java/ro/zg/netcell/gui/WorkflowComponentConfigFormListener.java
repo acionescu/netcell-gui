@@ -35,7 +35,11 @@ public class WorkflowComponentConfigFormListener implements PropertyChangeListen
 
     public void propertyChange(PropertyChangeEvent evt) {
 	String propName = evt.getPropertyName();
-	System.out.println(propName + "=" + evt.getNewValue() +" source "+evt.getSource());
+	System.out.println(propName + "=" + evt.getNewValue() + ", source " + evt.getSource());
+
+	ObjectFormModel formModel = (ObjectFormModel) evt.getSource();
+	WorkFlowComponentConfiguration wfc = (WorkFlowComponentConfiguration) formModel.getDataObject();
+	ComponentExitPointsMapping cepm = wfc.getComponentMapping();
 
 	if (propName.contains("exitValuesMappings")) {
 	    if (propName.contains("mappingType")) {
@@ -46,6 +50,11 @@ public class WorkflowComponentConfigFormListener implements PropertyChangeListen
 		// controller.onComponentMappingChanged();
 	    } else if (propName.contains("nextComponentId")) {
 		if (evt.getNewValue() != null) {
+		    if (evt.getOldValue() == null) {
+//			formModel.getFormData().setValue(propName, wfc.getLocalId());
+			ComponentExitPoint ep = (ComponentExitPoint)formModel.getObjectForProperty(propName);
+			ep.setNextComponentId(wfc.getLocalId());
+		    }
 		    controller.onComponentMappingChanged();
 		}
 	    } else if (propName.contains("exitPointMapping") && evt.getNewValue() != null) {
@@ -53,23 +62,28 @@ public class WorkflowComponentConfigFormListener implements PropertyChangeListen
 		controller.onExitPointMappingChanged(ep.getExitPointName(), ep.getExitPointMapping());
 	    }
 	} else if (propName.contains("mappingType")) {
-	    ObjectFormModel formModel = (ObjectFormModel)evt.getSource();
-	    WorkFlowComponentConfiguration wfc = (WorkFlowComponentConfiguration)formModel.getDataObject();
+
 	    if (evt.getNewValue().equals(ComponentExitPointsMapping.NO_MAPPING)) {
-		ComponentExitPointsMapping cepm = wfc.getComponentMapping();
+
 		cepm.setExitPointPrmName(null);
 		cepm.setNextComponentId(null);
 	    } else if (evt.getNewValue().equals(ComponentExitPointsMapping.PARAMETER_MAPPING)) {
-		ComponentExitPointsMapping cepm = wfc.getComponentMapping();
 		cepm.setNextComponentId(null);
 	    }
 	    controller.onComponentMappingChanged();
-	} else if (propName.contains("nextComponentId") || propName.contains("exitPointPrmName")) {
+	} else if (propName.contains("exitPointPrmName")) {
 	    if (evt.getNewValue() != null) {
 		controller.onComponentMappingChanged();
 	    }
-	} else if(propName.equals("localId")) {
-	    controller.renameWorkflowComponent((String)evt.getOldValue(), (String)evt.getNewValue());
+	} else if (propName.contains("nextComponentId")) {
+	    if (evt.getNewValue() != null) {
+		if (evt.getOldValue() == null) {
+		    cepm.setNextComponentId(wfc.getLocalId());
+		}
+		controller.onComponentMappingChanged();
+	    }
+	} else if (propName.equals("localId")) {
+	    controller.renameWorkflowComponent((String) evt.getOldValue(), (String) evt.getNewValue());
 	}
 	/* notify the controller that some data changed */
 	controller.onPropertyChanged();
