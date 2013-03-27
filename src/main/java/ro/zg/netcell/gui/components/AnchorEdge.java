@@ -15,41 +15,46 @@
  ******************************************************************************/
 package ro.zg.netcell.gui.components;
 
-import java.awt.Rectangle;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.List;
 
+import ro.zg.swing.util.shapes.Vector2D;
+
 public class AnchorEdge {
     private String id;
-    private Line2D edge;
+    private Vector2D edge;
     private GraphFigure parent;
     private List<Anchor> anchors = new ArrayList<Anchor>();
+    private Vector2D rootOffset;
     
-    public AnchorEdge(GraphFigure parent, Line2D edge,String id){
+    public AnchorEdge(GraphFigure parent, Vector2D edge,String id){
 	this.edge = edge;
 	this.parent = parent;
 	this.id =id;
+	
+	rootOffset=edge.getNormal().multiply(parent.getBoxWrapperSize());
     }
     
     public String toString(){
-	return "("+edge.getP1()+","+edge.getP2()+")";
+	return "("+edge.getTail()+","+edge.getHead()+")";
     }
     
     public Anchor getNextPreferedAnchor(){
 	float r = 1f/(anchors.size()+2);
-	Point2D p1 = edge.getP1();
-	Point2D p2 = edge.getP2();
+	Point2D p1 = edge.getTail();
+	Point2D p2 = edge.getHead();
 	Point2D pos = new Point2D.Double((p1.getX()+p2.getX())*r,(p1.getY()+p2.getY())*r);
-	return new Anchor(this,pos);
+	
+	return new Anchor(this,pos,new Point2D.Double(pos.getX()+rootOffset.getDx(),pos.getY()+rootOffset.getDy()));
     }
     
     public Point2D getNormalPoint(Point2D source, Point2D dest){
 	//TODO: this is bullshit, do it well, with vectors and stuff
-	Point2D p1 = edge.getP1();
-	Point2D p2 = edge.getP2();
-	Rectangle shapeBounds = parent.getEnlargedBounds();
+	Point2D p1 = edge.getTail();
+	Point2D p2 = edge.getHead();
+//	Rectangle shapeBounds = parent.getEnlargedBounds();
 	if(p1.getX() == p2.getX()){
 	    Point2D np = new Point2D.Double(source.getX(),dest.getY());
 //	    if(!shapeBounds.contains(np)){

@@ -21,6 +21,8 @@ import java.awt.event.ComponentListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+import ro.zg.swing.util.shapes.Vector2D;
+
 public class BoxGraphFigure extends GraphFigure implements ComponentListener{
     public static final String TOP="TOP";
     public static final String BOTTOM="BOTTOM";
@@ -33,7 +35,7 @@ public class BoxGraphFigure extends GraphFigure implements ComponentListener{
      */
     private static final long serialVersionUID = -7073937153065176805L;
     protected BoxGraphFigureConstraints constraints = new BoxGraphFigureConstraints();
-    private int boxWrapperSize = 1;
+    
     private Rectangle enlargedBounds;
     public BoxGraphFigure(){
 //	updateAnchors();
@@ -52,14 +54,6 @@ public class BoxGraphFigure extends GraphFigure implements ComponentListener{
 	updateAnchors();
     }
     
-    
-    private Rectangle enlargeBounds(Rectangle bounds) {
-	bounds.x-= boxWrapperSize;
-	bounds.y-= boxWrapperSize;
-	bounds.width += 2*boxWrapperSize;
-	bounds.height += 2*boxWrapperSize;
-	return bounds;
-    }
     protected void updateAnchors(){
 	Rectangle bounds = enlargeBounds(getBounds());
 	enlargedBounds = bounds;
@@ -69,16 +63,16 @@ public class BoxGraphFigure extends GraphFigure implements ComponentListener{
 	Point2D bottomright = new Point2D.Double(bounds.getMaxX(),bounds.getMaxY());
 	getAnchorEdges().clear();
 	if(constraints.topEdgeAnchorable){
-	    addAnchorEdge(new AnchorEdge(this,new Line2D.Double(topleft,topright),TOP));
+	    addAnchorEdge(new AnchorEdge(this,new Vector2D(topleft,topright),TOP));
 	}
 	if(constraints.bottomEdgeAnchorable){
-	    addAnchorEdge(new AnchorEdge(this,new Line2D.Double(bottomleft,bottomright),BOTTOM));
+	    addAnchorEdge(new AnchorEdge(this,new Vector2D(bottomright,bottomleft),BOTTOM));
 	}
 	if(constraints.leftEdgeAnchorable){
-	    addAnchorEdge(new AnchorEdge(this,new Line2D.Double(topleft,bottomleft),LEFT));
+	    addAnchorEdge(new AnchorEdge(this,new Vector2D(bottomleft,topleft),LEFT));
 	}
 	if(constraints.rightEdgeAnchorable){
-	    addAnchorEdge(new AnchorEdge(this,new Line2D.Double(topright,bottomright),RIGHT));
+	    addAnchorEdge(new AnchorEdge(this,new Vector2D(topright,bottomright),RIGHT));
 	}
     }
     public void componentShown(ComponentEvent e) {

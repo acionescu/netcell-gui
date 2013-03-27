@@ -266,8 +266,10 @@ public class WorkflowController implements ComponentListener {
 	    /* the arrow can only leave form the center of the bottom edge of the label's bounding box */
 	    if (exitPointLabel == null) {
 		// System.out.println("no exitpointlabel " + exitPointId + " " + sourceCompId + " " + destCompId);
-		anchorPoint = sourceComp.getNextAvailableAnchor(BoxGraphFigure.RIGHT).getLocation();
+		Anchor errAnchor = sourceComp.getNextAvailableAnchor(BoxGraphFigure.RIGHT);
+		anchorPoint = errAnchor.getLocation();
 		sourcePoints.add(new Point2D.Double(anchorPoint.getX(), anchorPoint.getY()));
+		anchorPoint = errAnchor.getRoot();
 		/* this happens only when the exit point is actually an error mapping */
 		isError = true;
 	    } else {
@@ -275,7 +277,7 @@ public class WorkflowController implements ComponentListener {
 		Point compUiLocation = sourceComp.getLocation();
 		anchorPoint = new Point2D.Double(compUiLocation.x + bounds.getCenterX(), sourceComp.getBounds()
 			.getMaxY());
-		sourcePoints.add(new Point2D.Double(anchorPoint.getX(), anchorPoint.getY() + 20));
+		sourcePoints.add(new Point2D.Double(anchorPoint.getX(), anchorPoint.getY() + 15));
 	    }
 
 	    path.add(anchorPoint);
@@ -289,7 +291,7 @@ public class WorkflowController implements ComponentListener {
 	     */
 	    Rectangle bounds = sourceComp.getBounds();
 	    anchorPoint = new Point2D.Double(bounds.getCenterX(), bounds.getMaxY());
-	    sourcePoints.add(new Point2D.Double(anchorPoint.getX(), anchorPoint.getY() + 20));
+	    sourcePoints.add(new Point2D.Double(anchorPoint.getX(), anchorPoint.getY() + 15));
 	    path.add(anchorPoint);
 	    // sourcePoints = MathUtil.getMiddleEdges(enlargeBounds(sourceComp.getBounds()));
 	}
@@ -301,11 +303,12 @@ public class WorkflowController implements ComponentListener {
 
 	// path = MathUtil.getShortestPath(sourcePoints, getInAnchors(enlargeBounds(destComp.getBounds())),
 	// componentsBounds.values(), (double) 20);
-
+	//System.out.println("Compute arrow from "+sourceCompId+ " to "+destCompId);
 	double pathDim = GraphUtil
-		.getShortestPath(sourcePoints, destComp, componentsBounds.values(), (double) 10, path);
+		.getShortestPath(sourcePoints, destComp, componentsBounds.values(), (double) 15, path);
 	JArrow ar = null;
 	if (pathDim >= 0) {
+	    //System.out.println(path);
 	    // if (anchorPoint != null && !path.contains(anchorPoint)) {
 	    // path.add(0, anchorPoint);
 	    // }

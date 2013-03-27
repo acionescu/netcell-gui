@@ -77,7 +77,7 @@ public class WorkflowComponentConfigFormListener implements PropertyChangeListen
 	    }
 	} else if (propName.contains("nextComponentId")) {
 	    if (evt.getNewValue() != null) {
-		if (evt.getOldValue() == null) {
+		if (!propName.contains("errorMapping") && evt.getOldValue() == null) {
 		    cepm.setNextComponentId(wfc.getLocalId());
 		}
 		controller.onComponentMappingChanged();

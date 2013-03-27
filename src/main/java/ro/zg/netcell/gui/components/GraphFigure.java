@@ -38,6 +38,8 @@ public abstract class GraphFigure extends JPanel implements MouseMotionListener,
     /* dragging */
     private Point pressedOffset;
     
+    private int boxWrapperSize = 15;
+    
     public GraphFigure(){
 	this.addMouseMotionListener(this);
 	this.addMouseListener(this);
@@ -49,6 +51,14 @@ public abstract class GraphFigure extends JPanel implements MouseMotionListener,
 	    anchors.add(edge.getNextPreferedAnchor());
 	}
 	return anchors;
+    }
+    
+    protected Rectangle enlargeBounds(Rectangle bounds) {
+	bounds.x-= boxWrapperSize;
+	bounds.y-= boxWrapperSize;
+	bounds.width += 2*boxWrapperSize;
+	bounds.height += 2*boxWrapperSize;
+	return bounds;
     }
     
     public Anchor getNextAvailableAnchor(String edgeId) {
@@ -144,6 +154,13 @@ public abstract class GraphFigure extends JPanel implements MouseMotionListener,
     public void mouseMoved(MouseEvent e) {
 	// TODO Auto-generated method stub
 
+    }
+
+    /**
+     * @return the boxWrapperSize
+     */
+    public int getBoxWrapperSize() {
+        return boxWrapperSize;
     }
 
 }

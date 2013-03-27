@@ -20,10 +20,12 @@ import java.awt.geom.Point2D;
 public class Anchor {
     private Point2D location;
     private AnchorEdge parent;
+    private Point2D root;
     
-    public Anchor(AnchorEdge parent, Point2D l){
+    public Anchor(AnchorEdge parent, Point2D l,Point2D root){
 	location = l;
 	this.parent = parent;
+	this.root=root;
     }
     
     public String toString(){
@@ -41,4 +43,13 @@ public class Anchor {
     public Point2D getNormalPoint(Point2D source){
 	return parent.getNormalPoint(source, location);
     }
+
+    /**
+     * @return the root
+     */
+    public Point2D getRoot() {
+        return root;
+    }
+    
+    
 }
