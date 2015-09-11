@@ -15,12 +15,14 @@
  ******************************************************************************/
 package ro.zg.netcell.toolkit.actions;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import ro.zg.java.forms.Form;
 import ro.zg.java.forms.model.ObjectFormModel;
@@ -46,7 +48,7 @@ public class UpdateScheduledJobAction  extends NetcellAbstractAction{
 	ScheduledJobDefinition sjd = (ScheduledJobDefinition)e.getSource();
 	Form form = controller.getFormForObject(sjd, "update");
 	form.initialize();
-	JOptionPane pane = new JOptionPane(form.getUi().getHolder());
+	JOptionPane pane = new JOptionPane(new JScrollPane((Component)form.getUi().getHolder()));
 	JDialog dialog = pane.createDialog("Configure scheduled job");
 	form.getModel().addPropertyChangeListener(new PropertyChangeMonitor());
 	dialog.setVisible(true);

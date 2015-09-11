@@ -179,6 +179,16 @@ public class NetcellGuiController implements TreeSelectionListener {
 	workflowDefPopup.add(item);
 
 	if (selectedDefinitionInTree != null) {
+
+	    if (selectedDefinitionInTree instanceof ExecutableEntityDefinition) {
+		/* execute component */
+		item = new JMenuItem(wfdefres.getString(PopupLabelsKeys.EXECUTE));
+		item.setActionCommand("execute");
+		item.addActionListener(actionsListener);
+		workflowDefPopup.add(item);
+
+	    }
+
 	    item = new JMenuItem(wfdefres.getString(PopupLabelsKeys.REMOVE));
 	    item.setActionCommand("remove.entity");
 	    item.addActionListener(actionsListener);

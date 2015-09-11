@@ -62,6 +62,7 @@ public class NetcellActionsListener implements ActionListener {
 	actions.put("update.customcomponent", new UpdateCustomComponentAction(c));
 	actions.put("update.scheduledjob", new UpdateScheduledJobAction(c));
 	actions.put("engine.reload", new ReloadEngineAction(c));
+	actions.put("execute", new DisplayExecuteCurrentFlowForm(c));
     }
 
     public void actionPerformed(ActionEvent e) {

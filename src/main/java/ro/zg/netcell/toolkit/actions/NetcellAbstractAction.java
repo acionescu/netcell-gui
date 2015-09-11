@@ -15,6 +15,7 @@
  ******************************************************************************/
 package ro.zg.netcell.toolkit.actions;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,6 +23,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import ro.zg.java.forms.Form;
 import ro.zg.java.forms.model.ObjectFormModel;
@@ -50,7 +52,7 @@ public abstract class NetcellAbstractAction extends AbstractAction {
     protected void handleDialog(Form form, String title) {
 	PropertyChangeMonitor pcm = new PropertyChangeMonitor();
 	form.getModel().addPropertyChangeListener(pcm);
-	int value = JOptionPane.showOptionDialog(null, form.getUi().getHolder(), title, JOptionPane.OK_CANCEL_OPTION,
+	int value = JOptionPane.showOptionDialog(null, new JScrollPane((Component)form.getUi().getHolder()), title, JOptionPane.OK_CANCEL_OPTION,
 		JOptionPane.PLAIN_MESSAGE, null, null, null);
 
 	if (value == 0 && pcm.hasChanged()) {

@@ -15,6 +15,7 @@
  ******************************************************************************/
 package ro.zg.netcell.toolkit.actions;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,6 +24,9 @@ import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+
+import org.apache.log4j.Logger;
 
 import ro.zg.java.forms.Form;
 import ro.zg.java.forms.impl.MapDataSource;
@@ -38,6 +42,7 @@ import ro.zg.util.data.UserInputParameter;
 
 public class UpdateDataAccessComponent extends NetcellAbstractAction {
     private static final long serialVersionUID = 4094427407180933187L;
+    private static final Logger logger = Logger.getLogger(UpdateDataAccessComponent.class.getName());
 
     public UpdateDataAccessComponent(NetcellGuiController controller) {
 	super(controller);
@@ -60,6 +65,10 @@ public class UpdateDataAccessComponent extends NetcellAbstractAction {
 		for (UserInputParameter uip : userInputParams.values()) {
 		    if (uip != null && dsConfigParams != null) {
 			UserInputParameter templateParam = (UserInputParameter) dsConfigParams.get(uip.getName());
+			if(templateParam == null) {
+			    logger.warn("No template found for "+uip.getName());
+			    continue;
+			}
 			uip.setAllowedValues(templateParam.getAllowedValues());
 		    }
 		}
@@ -72,7 +81,7 @@ public class UpdateDataAccessComponent extends NetcellAbstractAction {
 //	form.setAuxiliaryData(auxiliaryData);
 	form.setFormDataSource(new MapDataSource(auxiliaryData));
 	form.initialize();
-	JOptionPane pane = new JOptionPane(form.getUi().getHolder());
+	JOptionPane pane = new JOptionPane(new JScrollPane((Component)form.getUi().getHolder()));
 	JDialog dialog = pane.createDialog("Configure data access component");
 	form.getModel().addPropertyChangeListener(new PropertyChangeMonitor(dialog, pane));
 	dialog.validate();

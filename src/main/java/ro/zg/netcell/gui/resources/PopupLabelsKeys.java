@@ -24,4 +24,5 @@ public class PopupLabelsKeys {
     public static final String ADD_NEW_DATA_ACCESS_COMPONENT="dataaccesscomponent.add";
     public static final String ADD_NEW_CONFIGURABLE_COMPONENT="configurablecomponent.add";
     public static final String RELOAD_ENGINE="engine.reload";
+    public static final String EXECUTE="execute";
 }

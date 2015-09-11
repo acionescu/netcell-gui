@@ -31,7 +31,7 @@ import ro.zg.java.forms.Form;
 import ro.zg.netcell.control.CommandResponse;
 import ro.zg.netcell.gui.NetcellGuiController;
 import ro.zg.netcell.gui.vo.ExecuteFlowRequest;
-import ro.zg.netcell.vo.definitions.WorkFlowDefinition;
+import ro.zg.netcell.vo.definitions.ExecutableEntityDefinition;
 import ro.zg.util.data.NameValue;
 import ro.zg.util.data.ObjectsUtil;
 
@@ -49,9 +49,15 @@ public class DisplayExecuteCurrentFlowForm extends ThreadedNetcellAbstractAction
 
     public void actionPerformedDelegate(ActionEvent e) throws Exception {
 	ExecuteFlowRequest request = new ExecuteFlowRequest();
-	WorkFlowDefinition wfDef = controller.getCurrentDefinition();
-	request.setFlowId(wfDef.getId());
-	request.setInputParameters((List) ObjectsUtil.copy(wfDef.getInputParameters()));
+	ExecutableEntityDefinition compDef = controller.getCurrentDefinition();
+	
+	if(e.getActionCommand().equals("execute")) {
+	    compDef = (ExecutableEntityDefinition)controller.getSelectedDefinitionInTree();
+	}
+	
+	
+	request.setFlowId(compDef.getId());
+	request.setInputParameters((List) ObjectsUtil.copy(compDef.getInputParameters()));
 
 	JTextArea output = new JTextArea();
 	output.setEditable(false);
@@ -65,7 +71,7 @@ public class DisplayExecuteCurrentFlowForm extends ThreadedNetcellAbstractAction
 	form.initialize();
 
 	JComponent content = (JComponent) form.getUi().getHolder();
-	JFrame jf = new JFrame("Execute flow " + wfDef.getId());
+	JFrame jf = new JFrame("Execute flow " + compDef.getId());
 	JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, content, outputScrollPane);
 
 	jf.add(sp);
@@ -89,6 +95,7 @@ public class DisplayExecuteCurrentFlowForm extends ThreadedNetcellAbstractAction
 	    Thread t = new Thread() {
 		public void run() {
 		    ((JButton)e.getSource()).setEnabled(false);
+		    System.out.println("Executing: "+request.getInputParameters());
 		    CommandResponse cr = controller.executeFlow(request);
 		    String text = cr.getResponseCode();
 		    for (NameValue<Object> nv : cr.getParametersAsList()) {
