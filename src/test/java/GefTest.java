@@ -1,18 +1,19 @@
-/*******************************************************************************
- * Copyright 2011 Adrian Cristian Ionescu
- * 
+/**
+ * netcell-gui - A Swing GUI for netcell ESB
+ * Copyright (C) 2009  Adrian Cristian Ionescu - https://github.com/acionescu
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ */
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import ro.zg.math.GraphUtil;
-import ro.zg.netcell.gui.components.ExitPointMappingUI;
-import ro.zg.netcell.gui.components.JArrow;
-import ro.zg.netcell.gui.components.JBrokenArrow;
-import ro.zg.netcell.toolkit.EventProcessor;
-import ro.zg.netcell.toolkit.GenericEventListener;
-import ro.zg.netcell.toolkit.listeners.SwingEventsListener;
+import net.segoia.math.GraphUtil;
+import net.segoia.netcell.gui.components.ExitPointMappingUI;
+import net.segoia.netcell.gui.components.JArrow;
+import net.segoia.netcell.gui.components.JBrokenArrow;
+import net.segoia.netcell.toolkit.EventProcessor;
+import net.segoia.netcell.toolkit.GenericEventListener;
+import net.segoia.netcell.toolkit.listeners.SwingEventsListener;
 
 
 public class GefTest {

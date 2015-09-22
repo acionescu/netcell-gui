@@ -1,18 +1,19 @@
-/*******************************************************************************
- * Copyright 2011 Adrian Cristian Ionescu
- * 
+/**
+ * netcell-gui - A Swing GUI for netcell ESB
+ * Copyright (C) 2009  Adrian Cristian Ionescu - https://github.com/acionescu
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ */
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.math.BigDecimal;
@@ -25,15 +26,15 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import ro.zg.cfgengine.core.configuration.ConfigurationManager;
-import ro.zg.cfgengine.util.PackageCfgLoader;
-import ro.zg.java.forms.DefaultFormFactory;
-import ro.zg.java.forms.Form;
-import ro.zg.java.forms.FormConfig;
-import ro.zg.java.forms.impl.MapDataSource;
-import ro.zg.java.forms.swing.SwingFormUiFactory;
-import ro.zg.netcell.vo.InputParameter;
-import ro.zg.util.data.GenericNameValue;
+import net.segoia.cfgengine.core.configuration.ConfigurationManager;
+import net.segoia.cfgengine.util.PackageCfgLoader;
+import net.segoia.java.forms.DefaultFormFactory;
+import net.segoia.java.forms.Form;
+import net.segoia.java.forms.FormConfig;
+import net.segoia.java.forms.impl.MapDataSource;
+import net.segoia.java.forms.swing.SwingFormUiFactory;
+import net.segoia.netcell.vo.InputParameter;
+import net.segoia.util.data.GenericNameValue;
 
 
 public class UiGeneratorTest2 {
@@ -99,7 +100,7 @@ public class UiGeneratorTest2 {
 	dff.setUiFactory(new SwingFormUiFactory());
 	
 //	FormConfig fc = (FormConfig) cfgBuilder.getObjectById("WorkFlowDefinition");
-	FormConfig fc = (FormConfig) cfgBuilder.getObjectById("ro.zg.netcell.vo.configurations.WorkFlowComponentConfiguration");
+	FormConfig fc = (FormConfig) cfgBuilder.getObjectById("net.segoia.netcell.vo.configurations.WorkFlowComponentConfiguration");
 	Form f = dff.createForm(fc);
 //	f.getModel().setAuxiliaryData(sources);
 	f.setFormDataSource(new MapDataSource(sources));
