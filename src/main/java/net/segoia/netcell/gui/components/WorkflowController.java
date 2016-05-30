@@ -253,6 +253,7 @@ public class WorkflowController implements ComponentListener {
 	// GraphEdge edge = edgeFactory.createEdge(sourceCompId, destCompId);
 	/* see if any value associated with this edge */
 	GenericNameValue edgeValue = (GenericNameValue) edge.getValue();
+	
 	Point2D anchorPoint = null;
 	boolean isError = false;
 	if (edgeValue != null) {
@@ -304,9 +305,8 @@ public class WorkflowController implements ComponentListener {
 
 	// path = MathUtil.getShortestPath(sourcePoints, getInAnchors(enlargeBounds(destComp.getBounds())),
 	// componentsBounds.values(), (double) 20);
-	//System.out.println("Compute arrow from "+sourceCompId+ " to "+destCompId);
-	double pathDim = GraphUtil
-		.getShortestPath(sourcePoints, destComp, componentsBounds.values(), (double) 15, path);
+//	System.out.println("Compute arrow from "+sourceCompId+ " to "+destCompId);
+	double pathDim = GraphUtil.getShortestPath(sourcePoints, destComp, componentsBounds.values(), (double) 50, path);
 	JArrow ar = null;
 	if (pathDim >= 0) {
 	    //System.out.println(path);
