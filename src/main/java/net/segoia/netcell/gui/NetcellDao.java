@@ -36,8 +36,9 @@ public class NetcellDao {
     private NetCell client;
     
     public NetcellDao(){
-//	client = new NetcellRmiClient("192.168.0.104", 2000, "NetcellRmiReceiver");
+//	client = new NetcellRmiClient("192.168.0.101", 2002, "NetcellRmiReceiver");
 	client = new NetcellRmiClient("localhost", 2000, "NetcellRmiReceiver");
+//	client = new NetcellRmiClient("localhost", 2100, "NetcellRmiReceiver");
     }
     
     private CommandResponse execute(Command c){

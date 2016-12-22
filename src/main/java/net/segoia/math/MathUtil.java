@@ -60,8 +60,8 @@ public class MathUtil {
     }
 
     public static boolean checkOnEdge(Rectangle2D r, Point2D p) {
-	return (p.getY() == r.getMaxY() || p.getY() == r.getMinY() || p.getX() == r.getMaxX() || p.getX() == r
-		.getMinX());
+	return (p.getY() == r.getMaxY() || p.getY() == r.getMinY() || p.getX() == r.getMaxX()
+		|| p.getX() == r.getMinX());
     }
 
     public static double getShortestPath(Point2D source, Point2D dest, List<Rectangle2D> obstacles,
@@ -148,41 +148,90 @@ public class MathUtil {
     public static double getShortestPath2(Point2D source, Point2D dest, Collection<Rectangle2D> obstacles,
 	    double minDistToObstacle, List<Point2D> path) {
 
+	if (path.contains(source) || path.contains(dest)) {
+	    // throw new RuntimeException("Point already exists!!! -> "+source + " :
+	    // "+path.indexOf(source)+"/"+path.size());
+	    return -1;
+	}
+
 	Line2D directLine = new Line2D.Double(source, dest);
-	path.add(source);
+
 	double dx = dest.getX();
 	double dy = dest.getY();
 	double sx = source.getX();
 	double sy = source.getY();
 
-//	if (dx != sx && dy != sy) {
-//	    List<Point2D> oldSource = new ArrayList<Point2D>();
-//	    oldSource.add(source);
-//	    List<Point2D> newSources = new ArrayList<Point2D>();
-//	    Point2D yAligned = new Point2D.Double(sx, dy);
-//	    Point2D xAligned = new Point2D.Double(dx, sy);
-//
-//	    List<Point2D> destList = new ArrayList<Point2D>();
-//	    destList.add(dest);
-//	    
-//	    newSources.add(xAligned);
-//	    newSources.add(yAligned);
-//	    
-//	    ArrayList<Point2D> p1 = new ArrayList<Point2D>(path);
-//	    ArrayList<Point2D> p2 = new ArrayList<Point2D>(path);
-//	    
-//	    getShortestPath2(oldSource, newSources, obstacles, minDistToObstacle, path);
-//	    getShortestPath2(newSources, destList, obstacles, minDistToObstacle, path);
-//	    
-//
-//	    int nextIndex = path.size();
-//	    double dist = getShortestPath2(newSources, destList, obstacles, minDistToObstacle, path);
-//	    if (dist >= 0) {
-//		return dist + source.distance(path.get(nextIndex));
-//	    }
-//
-//	}
+	if (dx != sx && dy != sy) {
+	    // System.out.println(source +" -> "+dest);
+	    Point2D yAligned = new Point2D.Double(sx, dy);
+	    Point2D xAligned = new Point2D.Double(dx, sy);
 
+	    List<Point2D> yPath = new ArrayList<Point2D>(path);
+	    double ydist = getShortestPath2(source, yAligned, obstacles, minDistToObstacle, yPath);
+
+	    List<Point2D> xPath = new ArrayList<Point2D>(path);
+	    double xdist = getShortestPath2(source, xAligned, obstacles, minDistToObstacle, xPath);
+
+	    if (ydist >= 0) {
+		yPath.remove(yAligned);
+		
+		Point2D yPrev = yPath.get(yPath.size()-1);
+		if(yPrev.getY() == yAligned.getY()) {
+		    yAligned = yPrev;
+		}
+		
+		double dl = getShortestPath2(yAligned, dest, obstacles, minDistToObstacle, yPath);
+		if (dl >= 0) {
+		    
+		    ydist += dl;
+		} else {
+		    ydist = -1;
+		}
+	    }
+
+	    if (xdist >= 0) {
+		xPath.remove(xAligned);
+		
+		Point2D xPrev = xPath.get(xPath.size()-1);
+		if(xPrev.getX() == xAligned.getX()) {
+		    xAligned = xPrev;
+		}
+		
+		double sl = getShortestPath2(xAligned, dest, obstacles, minDistToObstacle, xPath);
+		if (sl >= 0) {
+		    
+		    xdist += sl;
+		} else {
+		    xdist = -1;
+		}
+	    }
+
+	    if (ydist >= 0 && xdist >= 0) {
+		int dPathSize = yPath.size();
+		int sPathSize = xPath.size();
+		if (dPathSize < sPathSize || (dPathSize == sPathSize && ydist < xdist)) {
+		    path.clear();
+		    path.addAll(yPath);
+		    return ydist;
+		} else {
+		    path.clear();
+		    path.addAll(xPath);
+		    return xdist;
+		}
+	    } else if (ydist >= 0) {
+		path.clear();
+		path.addAll(yPath);
+		return ydist;
+	    } else if (xdist >= 0) {
+		path.clear();
+		path.addAll(xPath);
+		return xdist;
+	    }
+
+	    return -1;
+	}
+
+	path.add(source);
 	/* check if we cross the obstacles */
 	for (Rectangle2D obstacle : obstacles) {
 	    /* check if the source point is contained in an obstacle */
@@ -190,42 +239,62 @@ public class MathUtil {
 	    // return -1;
 	    // }
 
-	    if (obstacle.intersectsLine(directLine)/* && !checkOnEdge(obstacle, source) && !checkOnEdge(obstacle, dest) */) {
+	    if (obstacle.intersectsLine(
+		    directLine)/* && !checkOnEdge(obstacle, source) && !checkOnEdge(obstacle, dest) */) {
 
 		List<Point2D> newSources = new ArrayList<Point2D>();
 		Point2D newPoint = null;
-		/* right */
-		newPoint = new Point2D.Double(obstacle.getMaxX() + minDistToObstacle, sy);
-		if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
-		    newSources.add(newPoint);
-		}
 
-		/* bottom */
-		newPoint = new Point2D.Double(sx, obstacle.getMaxY() + minDistToObstacle);
-		if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
-		    newSources.add(newPoint);
+		/* vertical */
+		if (sx == dx) {
+		    /* right */
+		    newPoint = new Point2D.Double(obstacle.getMaxX() + minDistToObstacle, sy);
+		    if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
+			newSources.add(newPoint);
+		    }
+
+		    /* left */
+		    newPoint = new Point2D.Double(obstacle.getMinX() - minDistToObstacle, sy);
+		    if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
+			newSources.add(newPoint);
+		    }
 		}
-		/* left */
-		newPoint = new Point2D.Double(obstacle.getMinX() - minDistToObstacle, sy);
-		if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
-		    newSources.add(newPoint);
-		}
-		/* up */
-		newPoint = new Point2D.Double(sx, obstacle.getMinY() - minDistToObstacle);
-		if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
-		    newSources.add(newPoint);
+		/* horizontal */
+		else {
+		    /* bottom */
+		    newPoint = new Point2D.Double(sx, obstacle.getMaxY() + minDistToObstacle);
+		    if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
+			newSources.add(newPoint);
+		    }
+
+		    /* up */
+		    newPoint = new Point2D.Double(sx, obstacle.getMinY() - minDistToObstacle);
+		    if (!path.contains(newPoint) && !checkOverlapping(obstacles, new Line2D.Double(source, newPoint))) {
+			newSources.add(newPoint);
+		    }
 		}
 
 		List<Point2D> destList = new ArrayList<Point2D>();
 		destList.add(dest);
-		int nextIndex = path.size();
-		double dist = getShortestPath2(newSources, destList, obstacles, minDistToObstacle, path);
+		
+		
+		List<Point2D> tPath = new ArrayList<Point2D>(path);
+		
+		int nextIndex = tPath.size();
+		double dist = getShortestPath2(newSources, destList, obstacles, minDistToObstacle, tPath);
 		if (dist >= 0) {
+		    if(nextIndex > 2) {
+//			System.out.println("removing "+source);
+			tPath.remove(source);
+		    }
+		    path.clear();
+		    path.addAll(tPath);
 		    return dist + source.distance(path.get(nextIndex));
 		}
 		return dist;
 	    }
 	}
+
 	path.add(dest);
 	return source.distance(dest);
     }
@@ -259,7 +328,8 @@ public class MathUtil {
 
 	    }
 
-	    if (obstacle.intersectsLine(directLine)/* && !checkOnEdge(obstacle, source) && !checkOnEdge(obstacle, dest) */) {
+	    if (obstacle.intersectsLine(
+		    directLine)/* && !checkOnEdge(obstacle, source) && !checkOnEdge(obstacle, dest) */) {
 
 		// List<Point2D> newSources = new ArrayList<Point2D>();
 		// Point2D newPoint = null;
@@ -300,8 +370,8 @@ public class MathUtil {
 	return source.distance(dest);
     }
 
-    private static List<Point2D> getPathOptions(Point2D source, Collection<Rectangle2D> obstacles,
-	    Rectangle2D obstacle, double minDistToObstacle, List<Point2D> path) {
+    private static List<Point2D> getPathOptions(Point2D source, Collection<Rectangle2D> obstacles, Rectangle2D obstacle,
+	    double minDistToObstacle, List<Point2D> path) {
 	double sx = source.getX();
 	double sy = source.getY();
 	List<Point2D> newSources = new ArrayList<Point2D>();

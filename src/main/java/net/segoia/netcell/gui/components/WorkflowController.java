@@ -25,6 +25,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -579,6 +580,9 @@ public class WorkflowController implements ComponentListener {
 
     private void updateBounds(GraphFigure wfCompUi) {
 	Rectangle bounds = wfCompUi.getBounds();
+//	double minDist = (double) 40;
+//	bounds = new Rectangle(bounds.getLocation(), new Dimension( (int)(bounds.getWidth()+ minDist), (int)(bounds.getHeight()+ minDist)));
+	
 	componentsBounds.put(wfCompUi.getId(), bounds);
     }
 

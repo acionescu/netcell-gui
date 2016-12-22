@@ -563,7 +563,7 @@
 	<form-config id="RequestInputParameter" model-factory-id="DefaultModel"
 		data-type="net.segoia.netcell.vo.InputParameter" show-labels="false">
 		<component fieldName="name" ui-type="LABEL" />
-		<component fieldName="value" ui-type="TEXTFIELD" />
+		<component fieldName="value" ui-type="TEXTAREA" />
 		<component fieldName="type" ui-type="LABEL" />
 		<component fieldName="mandatory" ui-type="LABEL" />
 	</form-config>

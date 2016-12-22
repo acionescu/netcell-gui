@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -1087,6 +1088,9 @@ public class NetcellGuiController implements TreeSelectionListener {
 	// // mainFrame.add(wfui);
 	//
 	// mainFrame.validate();
+	
+	System.setSecurityManager(new MySecurityManager());
+	
 
 	Font f = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 	Enumeration keys = UIManager.getDefaults().keys();
@@ -1108,6 +1112,14 @@ public class NetcellGuiController implements TreeSelectionListener {
 	nc.start();
 
     }
+    
+    private static class MySecurityManager extends SecurityManager {
+	    @Override
+	    public void checkPermission(Permission perm) {
+	        return;
+	    }
+	}
+    
 
     private void traceCodes(Collection c) {
 	System.out.println("hash codes for " + c);
